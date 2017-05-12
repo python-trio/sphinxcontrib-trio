@@ -30,6 +30,8 @@
    but in HTML5 the HTML width= attribute on <col> tags is deprecated in favor
    CSS width: attribute, so hopefully most browsers map them to the same
    internal setting. It works on Firefox 52, anyway.
+
+   Idea from: http://stackoverflow.com/a/25553413
 */
 table.docutils col {
     width: auto !important;
