@@ -3,9 +3,9 @@
 sphinxcontrib-trio
 ==================
 
-This is a sphinx extension to help with documenting Python code that
-uses async/await, or abstract methods, or context managers, or
-generators, or ... you get the idea. It makes sphinx's regular
+This sphinx extension helps you document Python code that uses
+async/await, or abstract methods, or context managers, or generators,
+or ... you get the idea. It works by making sphinx's regular
 directives for documenting Python functions and methods smarter and
 more powerful. The name is because it was originally written for the
 `Trio <https://trio.readthedocs.io>`__ project, and I'm not very
