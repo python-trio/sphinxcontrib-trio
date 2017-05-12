@@ -1,7 +1,8 @@
 from pathlib import Path
-from setuptools import setup
+from setuptools import setup, find_packages
 
-from sphinxcontrib_trio import __version__
+# defines __version__
+exec(open("sphinxcontrib_trio/_version.py").read())
 
 setup(
     name="sphinxcontrib-trio",
@@ -14,7 +15,7 @@ setup(
     author="Nathaniel J. Smith",
     author_email="njs@pobox.com",
     license="MIT -or- Apache License 2.0",
-    py_modules="sphinxcontrib_trio",
+    packages=find_packages(),
     url="https://github.com/python-trio/sphinxcontrib-trio",
     install_requires=["sphinx"],
     classifiers=[

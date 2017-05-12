@@ -1,5 +1,3 @@
-__version__ = "0.9.0"
-
 """A sphinx extension to help documenting Python code that uses async/await
 (or context managers, or abstract methods, or generators, or ...).
 
@@ -58,6 +56,8 @@ and renders like
    abstractmethod staticmethod @foo
 
 """
+
+from ._version import __version__
 
 import inspect
 try:
