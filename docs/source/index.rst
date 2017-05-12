@@ -84,13 +84,13 @@ Option                Renders like                     Autodetectable?
 ``:async:``           *await* **fn**\()                yes!
 ``:decorator:``       @\ **fn**                        no
 ``:with:``            *with* **fn**\()                 no
-``:with: foo``        *with* **fn**\() *as foo*        no
+``:with: foo``        *with* **fn**\() *as foo*        —
 ``:async-with:``      *async with* **fn**\()           no
-``:async-with: foo``  *async with* **fn**\() *as foo*  no
+``:async-with: foo``  *async with* **fn**\() *as foo*  —
 ``:for:``             *for ... in* **fn**\()           yes! (on generators)
-``:for: foo``         *for foo in* **fn**\()           yes! (on generators)
+``:for: foo``         *for foo in* **fn**\()           —
 ``:async-for:``       *async for ... in* **fn**\()     yes! (on async generators)
-``:async-for: foo``   *async for foo in* **fn**\()     yes! (on async generators)
+``:async-for: foo``   *async for foo in* **fn**\()     —
 ====================  ===============================  ==========================
 
 The ``:async-for:`` autodetection code supports both `native async
