@@ -60,7 +60,15 @@ and renders like
 """
 
 import inspect
-import async_generator
+try:
+    from async_generator import isasyncgenfunction
+except ImportError:
+    try:
+        from inspect import isasyncgenfunction
+    except ImportError:
+        # This python install has no way to make async generators
+        def isasyncgenfunction(fn):
+            return False
 
 from docutils.parsers.rst import directives
 from sphinx import addnodes
@@ -209,7 +217,7 @@ def sniff_options(obj):
         # coroutines, so we use elif
         elif inspect.isgeneratorfunction(obj):
             options.add("for")
-        if async_generator.isasyncgenfunction(obj):
+        if isasyncgenfunction(obj):
             options.add("async-for")
             async_gen = True
         if hasattr(obj, "__wrapped__"):

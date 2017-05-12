@@ -16,7 +16,7 @@ setup(
     license="MIT -or- Apache License 2.0",
     py_modules="sphinxcontrib_trio",
     url="https://github.com/python-trio/sphinxcontrib-trio",
-    install_requires=["async_generator", "sphinx"],
+    install_requires=["sphinx"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
