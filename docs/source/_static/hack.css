@@ -1,0 +1,36 @@
+/* docutils has a very stupid heuristic where it forces browsers to render the
+   columns in HTML tables with the same relative widths as the monospaced ReST
+   source text for those columns. Our tables have lots of markup in them that
+   take up source text but don't even appear in the HTML (and never mind that
+   the whole thing makes no sense because browsers know the *actual* width of
+   the text), which causes them to be ugly and have unnecessary linebreaks in
+   some columns and random whitespace in others.
+
+   According to the docutils documentation, this can be overridden by using a
+   table:: directive with :widths: auto, or setting the docutils configuration
+   table_style to "colwidths-auto". However, after much pain and hassle, I've
+   convinced myself that this doesn't actually work -- the code in
+   _html_base.py in docutils that tries to decide whether to emit the
+   <colgroup> tag based on these settings isn't even called, and the code in
+   html4css1/__init__.py that actually emits the <colgroup> tags doesn't check
+   the configuration. (Also, sphinx makes it absurdly difficult to modify the
+   docutils settings -- I ended up monkeypatching
+   sphinx.environment.default_settings. But it doesn't matter because the
+   settings don't work anyway.)
+
+   This attempts to tell the browser to ignore docutils's helpful table width
+   settings. I'm not sure it works on all browsers, because docutils actually
+   generates HTML like:
+
+   <colgroup>
+     <col width="10%">
+     <col width="90%">
+   </colgroup>
+
+   but in HTML5 the HTML width= attribute on <col> tags is deprecated in favor
+   CSS width: attribute, so hopefully most browsers map them to the same
+   internal setting. It works on Firefox 52, anyway.
+*/
+table.docutils col {
+    width: auto !important;
+}

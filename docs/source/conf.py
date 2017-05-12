@@ -37,7 +37,11 @@ extensions = [
     'sphinxcontrib_trio',
 ]
 
+def setup(app):
+    app.add_stylesheet("hack.css")
+
 intersphinx_mapping = {
+    #"sphinx": ("http://www.sphinx-doc.org/en/stable/", None),
     #"python": ('https://docs.python.org/3', None),
 }
 
