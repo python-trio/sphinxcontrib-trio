@@ -1,6 +1,3 @@
-sphinxcontrib-trio documentation
-================================
-
 .. include:: ../../README.rst
 
 

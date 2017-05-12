@@ -1,12 +1,15 @@
 .. note that this README gets 'include'ed into the main documentation
 
-sphinxcontrib-trio is a sphinx extension to help with documenting
-Python code that uses async/await, or abstract methods, or context
-managers, or generators, or ... you get the idea. It makes sphinx's
-regular directives for documenting Python functions and methods
-smarter and more powerful. The name is because it was originally
-written for the `Trio <https://trio.readthedocs.io>`__ project, and
-I'm not very creative. But don't be put off – there's nothing Trio- or
+sphinxcontrib-trio
+==================
+
+This is a sphinx extension to help with documenting Python code that
+uses async/await, or abstract methods, or context managers, or
+generators, or ... you get the idea. It makes sphinx's regular
+directives for documenting Python functions and methods smarter and
+more powerful. The name is because it was originally written for the
+`Trio <https://trio.readthedocs.io>`__ project, and I'm not very
+creative. But don't be put off – there's nothing Trio- or
 async-specific about this extension; any Python project can
 benefit. (Though projects using async/await probably benefit the most,
 since sphinx's built-in tools are especially inadequate in this case.)
