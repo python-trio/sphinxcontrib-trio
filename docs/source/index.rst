@@ -21,7 +21,7 @@ every possible type: ``asyncmethod::``, ``abstractmethod::``,
 the idea. But this quickly becomes silly. sphinxcontrib-trio takes a
 different approach: it enhances the basic ``function::`` and
 ``method::`` directives to accept options describing the attributes of
-each function/method, so you can mix and match like:
+each function/method, so you can write ReST code like:
 
 .. code-block:: rst
 
@@ -32,7 +32,7 @@ each function/method, so you can mix and match like:
 
       This method is perhaps more complicated than it needs to be.
 
-and you'll get a rendered output like:
+and you'll get rendered output like:
 
 .. method:: overachiever(arg1, ...)
    :abstractmethod:
@@ -41,7 +41,7 @@ and you'll get a rendered output like:
 
    This method is perhaps more complicated than it needs to be.
 
-And while I was at it, I also enhanced the ``sphinx.ext.autodoc``
+While I was at it, I also enhanced the ``sphinx.ext.autodoc``
 directives ``autofunction::`` and ``automethod::`` with new versions
 that know how to automatically detect many of these attributes, so you
 could just as easily have written the above as:
@@ -63,7 +63,7 @@ alias for:
 
 and similarly ``staticmethod``, ``decorator``, and
 ``decoratormethod``, so dropping this extension into an existing
-sphinx project should be 100% backwards-compatible while giving you
+sphinx project should be 100% backwards-compatible while giving sphinx
 new superpowers.
 
 Basically, this is how sphinx ought to work in the first

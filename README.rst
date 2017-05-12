@@ -32,9 +32,9 @@ https://github.com/python-trio/sphinxcontrib-trio
 **Usage:** ``pip install -U sphinxcontrib-trio`` in the same
 environment where you installed sphinx, and then add
 ``"sphinxcontrib_trio"`` to the list of ``extensions`` in your
-project's ``conf.py``. (Note that it's ``sphinxcontrib_trio`` with an
-underscore, NOT a dot. This is because I don't understand namespace
-packages, and I fear things that I don't understand.)
+project's ``conf.py``. (Notice that ``"sphinxcontrib_trio"`` has an
+underscore in it, NOT a dot. This is because I don't understand
+namespace packages, and I fear things that I don't understand.)
 
 **Code of conduct:** Contributors are requested to follow our `code of
 conduct
