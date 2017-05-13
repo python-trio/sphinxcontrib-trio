@@ -19,6 +19,6 @@ pip install -Ur test-requirements.txt
 mkdir empty
 pushd empty
 INSTALLDIR=$(python -c "import os, sphinxcontrib_trio; print(os.path.dirname(sphinxcontrib_trio.__file__))")
-pytest ../tests --cov="$INSTALLDIR" --cov-config="../.coveragerc
+pytest ../tests --cov="$INSTALLDIR" --cov-config="../.coveragerc"
 pip install codecov
 codecov
