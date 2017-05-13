@@ -289,3 +289,28 @@ used ("await f()" instead of "coroutine f()"), and avoids the
 <https://trio.readthedocs.io/en/latest/tutorial.html#tutorial>`__
 `coroutine
 <https://mail.python.org/pipermail/async-sig/2016-October/000141.html>`__.
+
+
+Revision history
+----------------
+
+vNEXT (????-??-??)
+++++++++++++++++++
+
+Add ``:no-sniff-options:`` option.
+
+Added autodetection heuristics for context managers.
+
+Added rule to prevent functions using ``@contextlib.contextmanager``
+or similar from being detected as generators (see `bpo-30359
+<https://bugs.python.org/issue30359>`__).
+
+Fixed a bug in the detection of async classmethods and async staticmethods.
+
+Added a minimal test suite.
+
+
+v0.9.0 (2017-05-11)
+++++++++++++++++++
+
+Initial release.
