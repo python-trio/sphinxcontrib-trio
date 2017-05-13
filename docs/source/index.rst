@@ -222,8 +222,8 @@ and it will render like:
 Bugs and limitations
 --------------------
 
-* Currently there are no tests, because I don't know how to test a
-  sphinx extension. If you do, please let me know.
+* Currently the test suite is very minimal, because I don't know how
+  to test a sphinx extension. If you do, please let me know.
 
 * Python supports defining abstract properties like::
 
