@@ -16,6 +16,6 @@ sphinx-build -nW  -b html source build
 popd
 
 pip install -Ur test-requirements.txt
-pytest tests
+pytest tests --cov=sphinxcontrib-trio
 pip install codecov
 codecov
