@@ -311,6 +311,6 @@ Added a minimal test suite.
 
 
 v0.9.0 (2017-05-11)
-++++++++++++++++++
++++++++++++++++++++
 
 Initial release.
