@@ -71,12 +71,12 @@ place. Perhaps in the future it will. But until then, this extension
 is pretty handy.
 
 
-Details on supported options
-----------------------------
+The details
+-----------
 
 The following options are supported by the enhanced ``function::`` and
 ``method::`` directives, and some of them can be automatically
-detected if you use ``autofunction::`` / ``automethod::``:
+detected if you use ``autofunction::`` / ``automethod::``.
 
 ====================  ===============================  ==========================
 Option                Renders like                     Autodetectable?
@@ -84,16 +84,16 @@ Option                Renders like                     Autodetectable?
 ``:async:``           *await* **fn**\()                yes!
 ``:decorator:``       @\ **fn**                        no
 ``:with:``            *with* **fn**\()                 yes! (see below)
-``:with: foo``        *with* **fn**\() *as foo*        —
+``:with: foo``        *with* **fn**\() *as foo*        no
 ``:async-with:``      *async with* **fn**\()           yes! (see below)
-``:async-with: foo``  *async with* **fn**\() *as foo*  —
+``:async-with: foo``  *async with* **fn**\() *as foo*  no
 ``:for:``             *for ... in* **fn**\()           yes! (see below)
-``:for: foo``         *for foo in* **fn**\()           —
+``:for: foo``         *for foo in* **fn**\()           no
 ``:async-for:``       *async for ... in* **fn**\()     yes! (see below)
-``:async-for: foo``   *async for foo in* **fn**\()     —
+``:async-for: foo``   *async for foo in* **fn**\()     no
 ====================  ===============================  ==========================
 
-There are also a few options that are specific to ``method::``:
+There are also a few options that are specific to ``method::``. They are:
 
 ====================  ==========================  =====================
 Option                Renders like                Autodetectable?
@@ -104,8 +104,10 @@ Option                Renders like                Autodetectable?
 ====================  ==========================  =====================
 
 
-Autodetection details
-+++++++++++++++++++++
+.. autodetection::
+
+Autodetection heuristics
+++++++++++++++++++++++++
 
 * ``:with:`` is autodetected for:
 
@@ -133,7 +135,7 @@ Autodetection details
 
 As you can see, autodetection is necessarily a somewhat heuristic
 process. To reduce the rate of false positives, the autodetection code
-assumes that any given function can have at most one out of the
+assumes that any given function will have at most one out of the
 following options: ``:async:``, ``:with:``, ``:async-with:``,
 ``:for:``, ``:async-for:``. For example, this avoids the situation
 where a generator is decorated with ``contextlib.contextmanager``, and
