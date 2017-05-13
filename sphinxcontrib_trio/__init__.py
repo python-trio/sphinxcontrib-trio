@@ -247,6 +247,8 @@ def sniff_options(obj):
                 options.add("async-with")
         if hasattr(obj, "__wrapped__"):
             obj = obj.__wrapped__
+        elif hasattr(obj, "__func__"):  # for staticmethod & classmethod
+            obj = obj.__func__
         else:
             break
 
