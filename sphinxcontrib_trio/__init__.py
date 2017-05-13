@@ -59,6 +59,13 @@ and renders like
 
 from ._version import __version__
 
+from docutils.parsers.rst import directives
+from sphinx import addnodes
+from sphinx.domains.python import PyModulelevel, PyClassmember
+from sphinx.ext.autodoc import (
+    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter,
+)
+
 import inspect
 try:
     from async_generator import isasyncgenfunction
@@ -70,12 +77,17 @@ except ImportError:
         def isasyncgenfunction(fn):
             return False
 
-from docutils.parsers.rst import directives
-from sphinx import addnodes
-from sphinx.domains.python import PyModulelevel, PyClassmember
-from sphinx.ext.autodoc import (
-    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter,
-)
+CM_CODES = set()
+
+from contextlib import contextmanager
+CM_CODES.add(contextmanager(None).__code__)
+
+try:
+    from contextlib2 import contextmanager as contextmanager2
+except ImportError:
+    pass
+else:
+    CM_CODES.add(contextmanager2(None).__code__)
 
 extended_function_option_spec = {
     "async": directives.flag,
@@ -194,14 +206,19 @@ class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
 # Autodoc
 ################################################################
 
+# Our sniffer never reports more than one item from this set. In principle
+# it's possible for something to be, say, an async function that returns
+# a context manager ("with await foo(): ..."), but it's extremely unusual, and
+# OTOH it's very easy for these to get confused when walking the __wrapped__
+# chain (e.g. because async_generator converts an async into an async-for, and
+# maybe that then gets converted into an async-with by an async version of
+# contextlib.contextmanager). So once we see one of these, we stop looking for
+# the others.
+EXCLUSIVE_OPTIONS = {"async", "for", "async-for", "with", "async-with"}
+
 def sniff_options(obj):
     options = set()
-    async_gen = False
     # We walk the __wrapped__ chain to collect properties.
-    #
-    # If something sniffs as *both* an async generator *and* a coroutine, then
-    # it's probably an async_generator-style async_generator (since they wrap
-    # a coroutine, but are not a coroutine).
     while True:
         if getattr(obj, "__isabstractmethod__", False):
             options.add("abstractmethod")
@@ -211,21 +228,42 @@ def sniff_options(obj):
             options.add("staticmethod")
         # if isinstance(obj, property):
         #     options.add("property")
-        if inspect.iscoroutinefunction(obj):
-            options.add("async")
-        # in versions of Python, isgeneratorfunction returns true for
-        # coroutines, so we use elif
-        elif inspect.isgeneratorfunction(obj):
-            options.add("for")
-        if isasyncgenfunction(obj):
-            options.add("async-for")
-            async_gen = True
+        if not (options & EXCLUSIVE_OPTIONS):
+            # Only check for these if we haven't seen any of them yet
+            if inspect.iscoroutinefunction(obj):
+                options.add("async")
+            # in some versions of Python, isgeneratorfunction returns true for
+            # coroutines, so we use elif
+            elif inspect.isgeneratorfunction(obj):
+                options.add("for")
+            if isasyncgenfunction(obj):
+                options.add("async-for")
+            # Some heuristics to detect when something is a context manager
+            if getattr(obj, "__code__", None) in CM_CODES:
+                options.add("with")
+            if getattr(obj, "__returns_contextmanager__", False):
+                options.add("with")
+            if getattr(obj, "__returns_acontextmanager__", False):
+                options.add("async-with")
         if hasattr(obj, "__wrapped__"):
             obj = obj.__wrapped__
         else:
             break
-    if async_gen:
+
+    # If something sniffs as *both* an async generator *and* a coroutine, then
+    # it's probably an async_generator-style async_generator (since they wrap
+    # a coroutine, but are not a coroutine).
+    if "async-for" in options:
         options.discard("async")
+
+    # Similarly, if something sniffs as *both* an (async) generator *and* an
+    # (async) context manager, then it's probably a context manager, because
+    # those are frequently implemented using generators.
+    if "with" in options:
+        options.discard("for")
+    if "async-with" in options:
+        options.discard("async-for")
+
     return options
 
 def update_with_sniffed_options(obj, option_dict):

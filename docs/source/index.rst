@@ -83,21 +83,15 @@ Option                Renders like                     Autodetectable?
 ====================  ===============================  ==========================
 ``:async:``           *await* **fn**\()                yes!
 ``:decorator:``       @\ **fn**                        no
-``:with:``            *with* **fn**\()                 no
+``:with:``            *with* **fn**\()                 yes! (see below)
 ``:with: foo``        *with* **fn**\() *as foo*        —
-``:async-with:``      *async with* **fn**\()           no
+``:async-with:``      *async with* **fn**\()           yes! (see below)
 ``:async-with: foo``  *async with* **fn**\() *as foo*  —
-``:for:``             *for ... in* **fn**\()           yes! (on generators)
+``:for:``             *for ... in* **fn**\()           yes! (see below)
 ``:for: foo``         *for foo in* **fn**\()           —
-``:async-for:``       *async for ... in* **fn**\()     yes! (on async generators)
+``:async-for:``       *async for ... in* **fn**\()     yes! (see below)
 ``:async-for: foo``   *async for foo in* **fn**\()     —
 ====================  ===============================  ==========================
-
-The ``:async-for:`` autodetection code supports both `native async
-generators <https://www.python.org/dev/peps/pep-0525/>`__ (in Python
-3.6+) and those created by the `async_generator
-<https://github.com/njsmith/async_generator>`__ library (in Python
-3.5+).
 
 There are also a few options that are specific to ``method::``:
 
@@ -108,6 +102,42 @@ Option                Renders like                Autodetectable?
 ``:staticmethod:``    *staticmethod* **fn**\()    yes!
 ``:classmethod:``     *classmethod* **fn**\()     yes!
 ====================  ==========================  =====================
+
+
+Autodetection details
++++++++++++++++++++++
+
+* ``:with:`` is autodetected for:
+
+  * functions decorated with `contextlib.contextmanager
+    <https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager>`__
+    or `contextlib2.contextmanager
+    <https://contextlib2.readthedocs.io/en/stable/#contextlib2.contextmanager>`__,
+    and
+
+  * functions that have an attribute ``__returns_contextmanager__``
+    with a truthy value.
+
+* ``:async-with:`` is autodetected for functions that have an
+  attribute ``__returns_acontextmanager__`` (note the ``a``) with a
+  truthy value.
+
+* ``:for:`` is autodetected for generators.
+
+* ``:async-for:`` is autodetected for async generators. The code
+  supports both `native async generators
+  <https://www.python.org/dev/peps/pep-0525/>`__ (in Python 3.6+) and
+  those created by the `async_generator
+  <https://github.com/njsmith/async_generator>`__ library (in Python
+  3.5+).
+
+As you can see, autodetection is necessarily a somewhat heuristic
+process. To reduce the rate of false positives, the autodetection code
+assumes that any given function can have at most one out of the
+following options: ``:async:``, ``:with:``, ``:async-with:``,
+``:for:``, ``:async-for:``. For example, this avoids the situation
+where a generator is decorated with ``contextlib.contextmanager``, and
+sphinxcontrib-trio ends up applying both ``:for:`` and ``:with:``.
 
 
 Examples
