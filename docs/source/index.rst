@@ -104,8 +104,6 @@ Option                Renders like                Autodetectable?
 ====================  ==========================  =====================
 
 
-.. autodetection::
-
 Autodetection heuristics
 ++++++++++++++++++++++++
 
@@ -115,7 +113,6 @@ Autodetection heuristics
     <https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager>`__
     or `contextlib2.contextmanager
     <https://contextlib2.readthedocs.io/en/stable/#contextlib2.contextmanager>`__,
-    and
 
   * functions that have an attribute ``__returns_contextmanager__``
     with a truthy value.
@@ -140,6 +137,31 @@ following options: ``:async:``, ``:with:``, ``:async-with:``,
 ``:for:``, ``:async-for:``. For example, this avoids the situation
 where a generator is decorated with ``contextlib.contextmanager``, and
 sphinxcontrib-trio ends up applying both ``:for:`` and ``:with:``.
+
+But, despite our best attempts, it's possible that the heuristics will
+go wrong. Please do `report any cases where this happens
+<https://github.com/python-trio/sphinxcontrib-trio/issues>`__, but in
+the mean time you can work around the issue by using the
+``:no-auto-options:`` option to disable option sniffing, and then add
+the correct options manually. For example, this code will pull out
+``some_function``\'s signature and docstring from the source code, and
+then treat it as returning an async generator, regardless of its
+actual attributes.
+
+.. code-block:: rst
+
+   .. autofunction:: some_function
+      :no-auto-options:
+      :async-for:
+
+Another situation where this might be useful is if you have a function
+with `a complicated calling convention that can't be summarized in one
+line
+<https://mail.python.org/pipermail/async-sig/2017-May/000233.html>`__. I
+can't really recommend writing such APIs, but if you need to document
+one, then ``:no-auto-options:`` can be used to tell sphinxcontrib-trio
+to stop being helpful, and then you can describe the full calling
+convention in the text.
 
 
 Examples

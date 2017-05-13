@@ -267,6 +267,8 @@ def sniff_options(obj):
     return options
 
 def update_with_sniffed_options(obj, option_dict):
+    if "no-auto-options" in option_dict:
+        return
     sniffed = sniff_options(obj)
     for attr in sniffed:
         # Suppose someone has a generator, and they document it as:
