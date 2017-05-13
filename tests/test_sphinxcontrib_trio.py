@@ -6,6 +6,7 @@ import sys
 import textwrap
 import abc
 from contextlib import contextmanager
+from functools import wraps
 
 import lxml.html
 
@@ -119,6 +120,18 @@ def test_sniff_options():
         pass
     manual_acm.__returns_acontextmanager__ = True
     check(manual_acm, "async-with")
+
+    if have_async_generator:
+        @async_generator
+        async def acm_gen():  # pragma: no cover
+            await yield_()
+
+        @wraps(acm_gen)
+        def acm_wrapped():
+            pass
+        acm_wrapped.__returns_acontextmanager__ = True
+
+        check(acm_wrapped, "async-with")
 
     # A chain with complex overrides. We ignore the intermediate generator and
     # async function, because the outermost one is a contextmanager -- but we
