@@ -15,7 +15,10 @@ pushd docs
 sphinx-build -nW  -b html source build
 popd
 
+mkdir empty
+pushd empty
 pip install -Ur test-requirements.txt
-pytest tests --cov=sphinxcontrib_trio
+INSTALLDIR=$(python -c "import os, sphinxcontrib_trio; print(os.path.dirname(sphinxcontrib_trio.__file__))")
+pytest ../tests --cov="$INSTALLDIR" --cov-config="../.coveragerc
 pip install codecov
 codecov
