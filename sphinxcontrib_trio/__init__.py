@@ -63,7 +63,7 @@ from docutils.parsers.rst import directives
 from sphinx import addnodes
 from sphinx.domains.python import PyModulelevel, PyClassmember
 from sphinx.ext.autodoc import (
-    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter,
+    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options,
 )
 
 import inspect
@@ -106,6 +106,9 @@ extended_method_option_spec = {
     #"property": directives.flag,
 }
 
+autodoc_option_spec = {
+    "no-auto-options": directives.flag,
+}
 
 ################################################################
 # Extending the basic function and method directives
@@ -115,7 +118,8 @@ class ExtendedCallableMixin:
     def needs_arglist(self):
         # if "property" in self.options:
         #     return False
-        if "decorator" in self.options or self.objtype == "decorator":
+        if ("decorator" in self.options
+                or self.objtype in ["decorator", "decoratormethod"]):
             return False
         return True
 
@@ -166,11 +170,21 @@ class ExtendedCallableMixin:
             ret += "await "
         return ret
 
+    # But we do want to override the superclass get_signature_prefix to stop
+    # it from trying to do its own handling of staticmethod and classmethod
+    # directives (the legacy ones)
+    def get_signature_prefix(self, sig):
+        return ""
+
     def handle_signature(self, sig, signode):
+        print(sig)
+        print(id(self.options))
+        print(self.options)
         ret = super().handle_signature(sig, signode)
 
         # Add the "@" prefix
-        if "decorator" in self.options or self.objtype == "decorator":
+        if ("decorator" in self.options
+                or self.objtype in ["decorator", "decoratormethod"]):
             signode.insert(0, addnodes.desc_addname("@", "@"))
 
         # Now that the "@" has been taken care of, we can add in the regular
@@ -217,6 +231,7 @@ class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
 EXCLUSIVE_OPTIONS = {"async", "for", "async-for", "with", "async-with"}
 
 def sniff_options(obj):
+    print(obj)
     options = set()
     # We walk the __wrapped__ chain to collect properties.
     while True:
@@ -228,8 +243,8 @@ def sniff_options(obj):
             options.add("staticmethod")
         # if isinstance(obj, property):
         #     options.add("property")
+        # Only check for these if we haven't seen any of them yet:
         if not (options & EXCLUSIVE_OPTIONS):
-            # Only check for these if we haven't seen any of them yet
             if inspect.iscoroutinefunction(obj):
                 options.add("async")
             # in some versions of Python, isgeneratorfunction returns true for
@@ -252,20 +267,7 @@ def sniff_options(obj):
         else:
             break
 
-    # If something sniffs as *both* an async generator *and* a coroutine, then
-    # it's probably an async_generator-style async_generator (since they wrap
-    # a coroutine, but are not a coroutine).
-    if "async-for" in options:
-        options.discard("async")
-
-    # Similarly, if something sniffs as *both* an (async) generator *and* an
-    # (async) context manager, then it's probably a context manager, because
-    # those are frequently implemented using generators.
-    if "with" in options:
-        options.discard("for")
-    if "async-with" in options:
-        options.discard("async-for")
-
+    print(options)
     return options
 
 def update_with_sniffed_options(obj, option_dict):
@@ -284,6 +286,8 @@ def update_with_sniffed_options(obj, option_dict):
 
 def passthrough_option_lines(self, option_spec):
     sourcename = self.get_sourcename()
+    print("XXX", self.options)
+    print(id(self.options))
     for option in option_spec:
         if option in self.options:
             if self.options.get(option) is not None:
@@ -298,6 +302,7 @@ class ExtendedFunctionDocumenter(FunctionDocumenter):
     option_spec = {
         **FunctionDocumenter.option_spec,
         **extended_function_option_spec,
+        **autodoc_option_spec,
     }
 
     def add_directive_header(self, sig):
@@ -306,6 +311,8 @@ class ExtendedFunctionDocumenter(FunctionDocumenter):
 
     def import_object(self):
         ret = super().import_object()
+        # autodoc likes to re-use dicts here for some reason (!?!)
+        self.options = Options(self.options)
         update_with_sniffed_options(self.object, self.options)
         return ret
 
@@ -315,6 +322,7 @@ class ExtendedMethodDocumenter(MethodDocumenter):
     option_spec = {
         **MethodDocumenter.option_spec,
         **extended_method_option_spec,
+        **autodoc_option_spec,
     }
 
     def add_directive_header(self, sig):
@@ -337,6 +345,8 @@ class ExtendedMethodDocumenter(MethodDocumenter):
         # returns a regular function. We want to detect
         # classmethod/staticmethod, so we need to go through __dict__.
         obj = self.parent.__dict__.get(self.object_name)
+        # autodoc likes to re-use dicts here for some reason (!?!)
+        self.options = Options(self.options)
         update_with_sniffed_options(obj, self.options)
         # Replicate the special ordering hacks in
         # MethodDocumenter.import_object

@@ -222,9 +222,6 @@ and it will render like:
 Bugs and limitations
 --------------------
 
-* Currently the test suite is very minimal, because I don't know how
-  to test a sphinx extension. If you do, please let me know.
-
 * Python supports defining abstract properties like::
 
     @abstractmethod
@@ -307,7 +304,7 @@ or similar from being detected as generators (see `bpo-30359
 
 Fixed a bug in the detection of async classmethods and async staticmethods.
 
-Added a minimal test suite.
+Added a test suite.
 
 
 v0.9.0 (2017-05-11)

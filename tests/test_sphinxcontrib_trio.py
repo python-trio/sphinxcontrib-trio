@@ -1,11 +1,15 @@
 import pytest
 
+import subprocess
+import os.path
 import sys
 import textwrap
 import abc
 from contextlib import contextmanager
+
 from contextlib2 import contextmanager as contextmanager2
 from async_generator import async_generator, yield_
+import lxml.html
 
 from sphinxcontrib_trio import sniff_options
 
@@ -119,3 +123,48 @@ def test_sniff_options():
     messy3.__wrapped__ = messy2
     messy3.__returns_contextmanager__ = True
     check(messy3, "with", "staticmethod")
+
+# Hopefully the next sphinx release will have dedicated pytest-based testing
+# utilities:
+#
+#   https://github.com/sphinx-doc/sphinx/issues/3458
+#   https://github.com/sphinx-doc/sphinx/pull/3718
+#
+# Until then...
+def test_end_to_end(tmpdir):
+    subprocess.run(
+        ["sphinx-build", "-v", "-nW", "-nb", "html",
+         os.path.dirname(__file__), str(tmpdir)])
+
+    tree = lxml.html.parse(str(tmpdir / "test.html")).getroot()
+
+    def do_html_test(node):
+        original_content = node.text_content()
+        print("-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
+
+        check_tags = node.cssselect(".highlight-none")
+        checks = []
+        for tag in check_tags:
+            # lxml normalizes &nbsp to the unicode \xa0, so we do the same
+            checks.append(tag.text_content().strip().replace("&nbsp;", "\xa0"))
+            tag.drop_tree()
+
+        # make sure we removed the tests from the top-level node, to avoid
+        # potential false positives matching on the tests themselves!
+        assert len(node.text_content()) < len(original_content)
+        assert checks
+
+        test_content = lxml.html.tostring(node, encoding="unicode")
+        for check in checks:
+            assert check in test_content
+
+    print("\n-- NEGATIVE (WARNING) TESTS --\n")
+
+    for warning in tree.cssselect(".warning"):
+        with pytest.raises(AssertionError):
+            do_html_test(warning)
+
+    print("\n-- POSITIVE (NOTE) TESTS --\n")
+
+    for note in tree.cssselect(".note"):
+        do_html_test(note)
