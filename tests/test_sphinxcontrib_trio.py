@@ -7,9 +7,21 @@ import textwrap
 import abc
 from contextlib import contextmanager
 
-from contextlib2 import contextmanager as contextmanager2
-from async_generator import async_generator, yield_
 import lxml.html
+
+try:
+    from contextlib2 import contextmanager as contextmanager2
+except ImportError:
+    have_contextmanager2 = False
+else:
+    have_contextmanager2 = True
+
+try:
+    from async_generator import async_generator, yield_
+except ImportError:
+    have_async_generator = False
+else:
+    have_async_generator = True
 
 from sphinxcontrib_trio import sniff_options
 
@@ -77,10 +89,11 @@ def test_sniff_options():
         yield
     check(gen, "for")
 
-    @async_generator
-    async def agen():  # pragma: no cover
-        await yield_()
-    check(agen, "async-for")
+    if have_async_generator:
+        @async_generator
+        async def agen():  # pragma: no cover
+            await yield_()
+        check(agen, "async-for")
 
     if "agen_native" in globals():
         check(agen_native, "async-for")
@@ -91,10 +104,11 @@ def test_sniff_options():
 
     check(cm, "with")
 
-    @contextmanager2
-    def cm2():  # pragma: no cover
-        yield
-    check(cm2, "with")
+    if have_contextmanager2:
+        @contextmanager2
+        def cm2():  # pragma: no cover
+            yield
+        check(cm2, "with")
 
     def manual_cm():  # pragma: no cover
         pass
@@ -110,15 +124,15 @@ def test_sniff_options():
     # async function, because the outermost one is a contextmanager -- but we
     # still pick up the staticmethod at the end of the chain.
     @staticmethod
-    def messy0():
+    def messy0():  # pragma: no cover
         pass
-    async def messy1():
+    async def messy1():  # pragma: no cover
         pass
     messy1.__wrapped__ = messy0
-    def messy2():
+    def messy2():  # pragma: no cover
         yield
     messy2.__wrapped__ = messy1
-    def messy3():
+    def messy3():  # pragma: no cover
         pass
     messy3.__wrapped__ = messy2
     messy3.__returns_contextmanager__ = True
