@@ -177,9 +177,6 @@ class ExtendedCallableMixin:
         return ""
 
     def handle_signature(self, sig, signode):
-        print(sig)
-        print(id(self.options))
-        print(self.options)
         ret = super().handle_signature(sig, signode)
 
         # Add the "@" prefix
@@ -231,7 +228,6 @@ class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
 EXCLUSIVE_OPTIONS = {"async", "for", "async-for", "with", "async-with"}
 
 def sniff_options(obj):
-    print(obj)
     options = set()
     # We walk the __wrapped__ chain to collect properties.
     while True:
@@ -267,7 +263,6 @@ def sniff_options(obj):
         else:
             break
 
-    print(options)
     return options
 
 def update_with_sniffed_options(obj, option_dict):
@@ -286,8 +281,6 @@ def update_with_sniffed_options(obj, option_dict):
 
 def passthrough_option_lines(self, option_spec):
     sourcename = self.get_sourcename()
-    print("XXX", self.options)
-    print(id(self.options))
     for option in option_spec:
         if option in self.options:
             if self.options.get(option) is not None:
