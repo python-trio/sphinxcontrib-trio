@@ -20,10 +20,13 @@ mkdir empty
 pushd empty
 INSTALLDIR=$(python -c "import os, sphinxcontrib_trio; print(os.path.dirname(sphinxcontrib_trio.__file__))")
 pytest ../tests --cov="$INSTALLDIR" --cov=../tests --cov-config="../.coveragerc"
+mv .coverage .coverage.firstrun
 
 # Run tests again with minimal dependencies installed
 pip uninstall -y async_generator contextlib2
 pytest ../tests --cov="$INSTALLDIR" --cov=../tests --cov-config="../.coveragerc"
+
+coverage combine -a .coverage.firstrun
 
 pip install codecov
 codecov
