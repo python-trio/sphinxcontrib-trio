@@ -22,7 +22,7 @@ INSTALLDIR=$(python -c "import os, sphinxcontrib_trio; print(os.path.dirname(sph
 pytest ../tests --cov="$INSTALLDIR" --cov=../tests --cov-config="../.coveragerc"
 
 # Run tests again with minimal dependencies installed
-pip uninstall async_generator contextlib2
+pip uninstall -y async_generator contextlib2
 pytest ../tests --cov="$INSTALLDIR" --cov=../tests --cov-config="../.coveragerc"
 
 pip install codecov
