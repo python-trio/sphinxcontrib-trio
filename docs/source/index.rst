@@ -67,8 +67,9 @@ sphinx project should be 100% backwards-compatible while giving sphinx
 new superpowers.
 
 Basically, this is how sphinx ought to work in the first
-place. Perhaps in the future it will. But until then, this extension
-is pretty handy.
+place. `Perhaps in the future it
+will. <https://github.com/sphinx-doc/sphinx/issues/3743>`__ But until
+then, this extension is pretty handy.
 
 
 The details
