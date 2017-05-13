@@ -15,7 +15,7 @@ pushd docs
 sphinx-build -nW  -b html source build
 popd
 
+pip install -Ur test-requirements.txt
 pytest tests
-
 pip install codecov
 codecov
