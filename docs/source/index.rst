@@ -302,9 +302,9 @@ Added rule to prevent functions using ``@contextlib.contextmanager``
 or similar from being detected as generators (see `bpo-30359
 <https://bugs.python.org/issue30359>`__).
 
-Fixed a bug in the detection of async classmethods and async staticmethods.
-
 Added a test suite.
+
+Fixed many bugs found by the test suite.
 
 
 v0.9.0 (2017-05-11)
