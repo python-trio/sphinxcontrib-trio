@@ -128,7 +128,7 @@ def test_sniff_options():
             await yield_()
 
         @wraps(acm_gen)
-        def acm_wrapped():
+        def acm_wrapped():  # pragma: no cover
             pass
         acm_wrapped.__returns_acontextmanager__ = True
 
