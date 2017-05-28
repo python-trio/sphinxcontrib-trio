@@ -1,8 +1,8 @@
 [run]
 branch=True
 omit=
-  setup.py
-  autodoc_examples.py
+  */setup.py
+  */autodoc_examples.py
 
 [report]
 precision = 1
