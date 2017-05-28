@@ -2,6 +2,9 @@ language: python
 python:
   - 3.5
   - 3.6
+env:
+  - SPHINX_VERSION="<1.6"
+  - SPHINX_VERSION=">=1.6"
 sudo: false
 dist: trusty
 
