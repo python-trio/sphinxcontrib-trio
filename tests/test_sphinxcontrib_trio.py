@@ -7,6 +7,7 @@ import textwrap
 import abc
 from contextlib import contextmanager
 from functools import wraps
+import difflib
 
 import lxml.html
 
@@ -172,8 +173,10 @@ def test_end_to_end(tmpdir):
         check_tags = node.cssselect(".highlight-none")
         checks = []
         for tag in check_tags:
+            text = tag.text_content().strip()
             # lxml normalizes &nbsp to the unicode \xa0, so we do the same
-            checks.append(tag.text_content().strip().replace("&nbsp;", "\xa0"))
+            text = text.replace("&nbsp;", "\xa0")
+            checks.append(text)
             tag.drop_tree()
 
         # make sure we removed the tests from the top-level node, to avoid
@@ -182,8 +185,22 @@ def test_end_to_end(tmpdir):
         assert checks
 
         test_content = lxml.html.tostring(node, encoding="unicode")
+        # some versions of sphinx (>= 1.6) replace "..." with the ellipsis
+        # character \u2026. Normalize back to "..." for comparison
+        # purposes.
+        test_content = test_content.replace("\u2026", "...")
         for check in checks:
-            assert check in test_content
+            try:
+                assert check in test_content
+            except:
+                print("failed check")
+                print()
+                print(repr(check))
+                print()
+                print("failed test_content")
+                print()
+                print(repr(test_content))
+                raise
 
     print("\n-- NEGATIVE (WARNING) TESTS --\n")
 
