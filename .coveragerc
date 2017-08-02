@@ -1,9 +1,8 @@
 [run]
 branch=True
-# For some reason coverage recording doesn't work for ipython_custom_exc.py,
-# so leave it out of reports
 omit=
-  setup.py
+  */setup.py
+  */autodoc_examples.py
 
 [report]
 precision = 1
