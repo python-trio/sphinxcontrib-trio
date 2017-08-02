@@ -45,6 +45,12 @@ intersphinx_mapping = {
     #"python": ('https://docs.python.org/3', None),
 }
 
+html_sidebars = {
+    "**": [
+        "localtoc.html", "relations.html", "searchbox.html", "need-help.html",
+    ],
+}
+
 autodoc_member_order = "bysource"
 
 # Add any paths that contain templates here, relative to this directory.
