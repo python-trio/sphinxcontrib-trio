@@ -1,0 +1,33 @@
+Source: sphinxcontrib-trio
+Maintainer: Matthias Urlichs <matthias@urlichs.de>
+Section: python
+Priority: optional
+Build-Depends: dh-python, python3-setuptools, python3-all, debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/python-trio/sphinxcontrib-trio
+
+Package: python3-sphinxcontrib-trio
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Make Sphinx better at documenting Python functions and metho
+ .. note that this README gets 'include'ed into the main documentation
+ .
+ sphinxcontrib-trio
+ ==================
+ .
+ This sphinx extension helps you document Python code that uses
+ async/await, or abstract methods, or context managers, or generators,
+ or ... you get the idea. It works by making sphinx's regular
+ directives for documenting Python functions and methods smarter and
+ more powerful. The name is because it was originally written for the
+ `Trio <https://trio.readthedocs.io>`__ project, and I'm not very
+ creative. But don't be put off – there's nothing Trio- or
+ async-specific about this extension; any Python project can
+ benefit. (Though projects using async/await probably benefit the most,
+ since sphinx's built-in tools are especially inadequate in this case.)
+ .
+ .
+ Vital statistics
+ ----------------
+ .
+

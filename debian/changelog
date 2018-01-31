@@ -1,0 +1,5 @@
+sphinxcontrib-trio (1.0.0+dev-1) smurf; urgency=low
+
+  * source package automatically created by stdeb 0.8.5
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Wed, 31 Jan 2018 13:03:26 +0100
