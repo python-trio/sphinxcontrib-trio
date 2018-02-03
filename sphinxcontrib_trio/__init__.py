@@ -65,6 +65,16 @@ from sphinx.domains.python import PyModulelevel, PyClassmember
 from sphinx.ext.autodoc import (
     FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options,
 )
+# In Sphinx versions prior to 1.7, this module would blow away some of the
+# regular autodoc configuration as a side-effect when it's first imported, and
+# normally this import would happen after we had set up our autodoc
+# configuration. So our configuration was getting lost. See:
+#
+#   https://github.com/python-trio/sphinxcontrib-trio/issues/8
+#
+# By importing it ourselves up front before we set up our configuration, we
+# get those side-effects out of the way early.
+import sphinx.ext.autosummary.generate
 
 import inspect
 try:

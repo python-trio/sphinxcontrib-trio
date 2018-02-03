@@ -29,3 +29,7 @@ class ExampleClass(abc.ABC):
 
     async def asyncmethod(self):
         pass
+
+
+async def autosummary_me():
+    pass
