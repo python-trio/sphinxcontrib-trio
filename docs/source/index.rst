@@ -292,6 +292,8 @@ used ("await f()" instead of "coroutine f()"), and avoids the
 Revision history
 ----------------
 
+.. towncrier release notes start
+
 v1.0.0 (2017-05-12)
 +++++++++++++++++++
 

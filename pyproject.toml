@@ -1,0 +1,12 @@
+[tool.towncrier]
+# Usage:
+# - PRs should drop a file like "issuenumber.feature" in newsfragments
+#   (or "bugfix", "doc", "removal", "misc"; misc gets no text, we can
+#    customize this)
+# - At release time after bumping version number, run: towncrier
+#   (or towncrier --draft)
+package = "trio"
+filename = "docs/source/index.rst"
+directory = "newsfragments"
+underlines = ["+", "~", "^"]
+issue_format = "`#{issue} <https://github.com/python-trio/sphinxcontrib-trio/issues/{issue}>`__"
