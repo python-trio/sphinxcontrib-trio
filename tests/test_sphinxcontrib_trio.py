@@ -8,6 +8,8 @@ import abc
 from contextlib import contextmanager
 from functools import wraps
 import difflib
+import shutil
+from pathlib import Path
 
 import lxml.html
 
@@ -160,11 +162,13 @@ def test_sniff_options():
 #
 # Until then...
 def test_end_to_end(tmpdir):
+    shutil.copytree(str(Path(__file__).parent / "test-docs-source"),
+                    str(tmpdir / "test-docs-source"))
     subprocess.run(
         ["sphinx-build", "-v", "-nW", "-nb", "html",
-         os.path.dirname(__file__), str(tmpdir)])
+         str(tmpdir / "test-docs-source"), str(tmpdir / "out")])
 
-    tree = lxml.html.parse(str(tmpdir / "test.html")).getroot()
+    tree = lxml.html.parse(str(tmpdir / "out" / "test.html")).getroot()
 
     def do_html_test(node):
         original_content = node.text_content()

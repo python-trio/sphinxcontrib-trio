@@ -331,3 +331,18 @@ Testing ``:no-auto-options:``:
    .. code-block:: none
 
       <em class="property">await </em><code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+
+
+Autodoc + Autosummary
+---------------------
+
+See: https://github.com/python-trio/sphinxcontrib-trio/issues/8
+
+Previously the presence of this code in the file (when combined with
+``autosummary_generate = True`` in ``conf.py``) would cause all the
+*other* ``autofunction`` tests to fail...
+
+.. autosummary::
+   :toctree:
+
+   autosummary_me

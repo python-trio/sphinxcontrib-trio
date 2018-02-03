@@ -1,0 +1,2 @@
+Fix an obscure incompatibility with the :mod:`sphinx.ext.autosummary`
+module's ``autosummary_generate = True`` setting.
