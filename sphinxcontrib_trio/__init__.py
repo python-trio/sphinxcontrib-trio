@@ -359,6 +359,8 @@ def setup(app):
     app.add_directive_to_domain('py', 'decorator', ExtendedPyFunction)
     app.add_directive_to_domain('py', 'decoratormethod', ExtendedPyMethod)
 
+    # Make sure sphinx.ext.autodoc is loaded before we try to mess with it.
+    app.setup_extension("sphinx.ext.autodoc")
     # We're overriding these on purpose, so disable the warning about it
     del directives._directives["autofunction"]
     del directives._directives["automethod"]

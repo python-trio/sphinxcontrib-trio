@@ -1,0 +1,4 @@
+Previously, sphinxcontrib-trio had to be listed after
+sphinx.ext.autodoc in your extensions configuration, or else sphinx
+would error out. Now sphinxcontrib-trio automatically loads
+sphinx.ext.autodoc as needed.
