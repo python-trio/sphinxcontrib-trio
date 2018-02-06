@@ -5,7 +5,7 @@
 #    customize this)
 # - At release time after bumping version number, run: towncrier
 #   (or towncrier --draft)
-package = "trio"
+package = "sphinxcontrib-trio"
 filename = "docs/source/index.rst"
 directory = "newsfragments"
 underlines = ["+", "~", "^"]
