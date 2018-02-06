@@ -294,8 +294,23 @@ Revision history
 
 .. towncrier release notes start
 
-v1.0.0 (2017-05-12)
-+++++++++++++++++++
+sphinxcontrib-trio 1.0.1 (2018-02-06)
++++++++++++++++++++++++++++++++++++++
+
+Bugfixes
+~~~~~~~~
+
+- Fix an obscure incompatibility with the :mod:`sphinx.ext.autosummary`
+  module's ``autosummary_generate = True`` setting. (`#8
+  <https://github.com/python-trio/sphinxcontrib-trio/issues/8>`__)
+- Previously, sphinxcontrib-trio had to be listed after sphinx.ext.autodoc in
+  your extensions configuration, or else sphinx would error out. Now
+  sphinxcontrib-trio automatically loads sphinx.ext.autodoc as needed. (`#9
+  <https://github.com/python-trio/sphinxcontrib-trio/issues/9>`__)
+
+
+sphinxcontrib-trio v1.0.0 (2017-05-12)
+++++++++++++++++++++++++++++++++++++++
 
 Added autodetection heuristics for context managers.
 
@@ -309,7 +324,7 @@ anyway.
 Added a test suite, and fixed many bugs... but I repeat myself.
 
 
-v0.9.0 (2017-05-11)
-+++++++++++++++++++
+sphinxcontrib-trio v0.9.0 (2017-05-11)
+++++++++++++++++++++++++++++++++++++++
 
 Initial release.
