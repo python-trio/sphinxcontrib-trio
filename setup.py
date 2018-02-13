@@ -27,6 +27,9 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Framework :: Sphinx :: Extension",
+        "Framework :: Trio",
+        "Framework :: AsyncIO",
+        "Framework :: Twisted",
         "Topic :: Documentation :: Sphinx",
         "Topic :: Software Development :: Documentation",
     ])
