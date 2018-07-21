@@ -376,4 +376,11 @@ def setup(app):
     del directives._directives["automethod"]
     app.add_autodocumenter(ExtendedFunctionDocumenter)
     app.add_autodocumenter(ExtendedMethodDocumenter)
+
+    # A monkey-patch to VariableCommentPicker to make autodoc_member_order = 'bysource' work.
+    from sphinx.pycode.parser import VariableCommentPicker
+
+    if not hasattr(VariableCommentPicker, "visit_AsyncFunctionDef"):
+        VariableCommentPicker.visit_AsyncFunctionDef = VariableCommentPicker.visit_FunctionDef
+
     return {'version': __version__, 'parallel_read_safe': True}
