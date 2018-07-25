@@ -216,3 +216,22 @@ def test_end_to_end(tmpdir):
 
     for note in tree.cssselect(".note"):
         do_html_test(note)
+
+
+def test_member_order(tmpdir):
+    shutil.copytree(str(Path(__file__).parent / "test-docs-source"),
+                    str(tmpdir / "test-docs-source"))
+
+    subprocess.run(
+        ["sphinx-build", "-v", "-nW", "-D", "autodoc_member_order=bysource", "-nb", "html",
+         str(tmpdir / "test-docs-source"), str(tmpdir / "out")])
+
+    tree = lxml.html.parse(str(tmpdir / "out" / "test.html")).getroot()
+
+    print("\n-- test case member order by source. --\n")
+
+    methods = tree.cssselect(r"#autodoc_examples\.ExampleClassForOrder")[0].getnext().cssselect("dt")
+
+    names = [method.get("id").split(".")[-1] for method in methods]
+
+    assert names == ["d_asyncmethod", "a_syncmethod", "c_asyncmethod", "b_syncmethod"]

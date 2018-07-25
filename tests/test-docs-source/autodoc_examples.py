@@ -31,5 +31,19 @@ class ExampleClass(abc.ABC):
         pass
 
 
+class ExampleClassForOrder:
+    async def d_asyncmethod(self):
+        pass
+
+    def a_syncmethod(self):
+        pass
+
+    async def c_asyncmethod(self):
+        pass
+
+    def b_syncmethod(self):
+        pass
+
+
 async def autosummary_me():
     pass

@@ -260,6 +260,13 @@ from you, and (b) you have to integrate correctly with autodoc for
       <em class="property">await </em><code class="descname">asyncmethod</code>
 
 
+Autodoc + order by source:
+
+.. autoclass:: ExampleClassForOrder
+   :members:
+   :undoc-members:
+
+
 Autodoc + explicit options:
 
 .. note::
