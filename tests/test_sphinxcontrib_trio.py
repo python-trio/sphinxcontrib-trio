@@ -223,7 +223,7 @@ def test_member_order(tmpdir):
                     str(tmpdir / "test-docs-source"))
 
     subprocess.run(
-        ["sphinx-build", "-v", "-nW", "-D", "autodoc_member_order='bysource'", "-nb", "html",
+        ["sphinx-build", "-v", "-nW", "-D", "autodoc_member_order=bysource", "-nb", "html",
          str(tmpdir / "test-docs-source"), str(tmpdir / "out")])
 
     tree = lxml.html.parse(str(tmpdir / "out" / "test.html")).getroot()
