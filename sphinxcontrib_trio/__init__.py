@@ -380,6 +380,7 @@ def setup(app):
     # A monkey-patch to VariableCommentPicker to make autodoc_member_order = 'bysource' work.
     from sphinx.pycode.parser import VariableCommentPicker
 
+    # pragma: no cover
     if not hasattr(VariableCommentPicker, "visit_AsyncFunctionDef"):
         VariableCommentPicker.visit_AsyncFunctionDef = VariableCommentPicker.visit_FunctionDef
 

@@ -1,0 +1,1 @@
+Fix autodoc_member_order="bysource" doesn't work for async methods.
