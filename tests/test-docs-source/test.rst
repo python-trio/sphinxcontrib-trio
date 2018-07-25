@@ -262,11 +262,9 @@ from you, and (b) you have to integrate correctly with autodoc for
 
 Autodoc + order by source:
 
-.. note::
-
-   .. autoclass:: ExampleClassForOrder
-      :members:
-      :undoc-members:
+.. autoclass:: ExampleClassForOrder
+   :members:
+   :undoc-members:
 
 
 Autodoc + explicit options:
