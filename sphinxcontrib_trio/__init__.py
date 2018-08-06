@@ -381,10 +381,8 @@ def setup(app):
     try:
         from sphinx.pycode.parser import VariableCommentPicker
     except ImportError:
-        # Sphinx <1.7
-        from sphinx.pycode import AttrDocVisitor
-        if not hasattr(AttrDocVisitor, "visit_async_funcdef"):  # pragma: no branch
-            AttrDocVisitor.visit_async_funcdef = AttrDocVisitor.visit_funcdef
+        # Sphinx <1.7, it works out of the box.
+        pass
     else:
         if not hasattr(VariableCommentPicker, "visit_AsyncFunctionDef"):  # pragma: no branch
             VariableCommentPicker.visit_AsyncFunctionDef = VariableCommentPicker.visit_FunctionDef
