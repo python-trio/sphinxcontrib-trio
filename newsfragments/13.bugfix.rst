@@ -1,3 +1,2 @@
 Previously, ``autodoc_member_order="bysource"`` didn't work correctly
-for async methods. Now, it does – at least if you're using Sphinx 1.7
-or better.
+for async methods. Now, it does.
