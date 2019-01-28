@@ -1,1 +1,0 @@
-Remove support for sphinx<1.6.
