@@ -294,6 +294,22 @@ Revision history
 
 .. towncrier release notes start
 
+Sphinxcontrib_Trio 1.0.2 (2019-01-27)
++++++++++++++++++++++++++++++++++++++
+
+Bugfixes
+~~~~~~~~
+
+- Previously, on Sphinx 1.7, ``autodoc_member_order="bysource"`` didn't work correctly
+  for async methods. Now, it does. (`#13 <https://github.com/python-trio/sphinxcontrib-trio/issues/13>`__)
+
+
+Deprecations and Removals
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Remove support for sphinx<1.6. (`#14 <https://github.com/python-trio/sphinxcontrib-trio/issues/14>`__)
+
+
 sphinxcontrib-trio 1.0.1 (2018-02-06)
 +++++++++++++++++++++++++++++++++++++
 
