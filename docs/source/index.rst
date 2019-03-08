@@ -118,9 +118,13 @@ Autodetection heuristics
   * functions that have an attribute ``__returns_contextmanager__``
     with a truthy value.
 
-* ``:async-with:`` is autodetected for functions that have an
-  attribute ``__returns_acontextmanager__`` (note the ``a``) with a
-  truthy value.
+* ``:async-with:`` is autodetected for:
+
+  * functions that have an attribute ``__returns_acontextmanager__`` 
+    (note the ``a``) with a truthy value.
+  
+  * functions decorated with `contextlib.asynccontextmanager
+    <https://docs.python.org/3/library/contextlib.html#contextlib.asynccontextmanager>`__
 
 * ``:for:`` is autodetected for generators.
 

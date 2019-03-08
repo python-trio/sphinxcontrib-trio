@@ -27,6 +27,13 @@ except ImportError:
 else:
     have_async_generator = True
 
+try:
+    from contextlib import asynccontextmanager
+except ImportError:
+    have_asynccontextmanager = False
+else:
+    have_asynccontextmanager = True
+
 from sphinxcontrib_trio import sniff_options
 
 if sys.version_info >= (3, 6):
@@ -135,6 +142,13 @@ def test_sniff_options():
         acm_wrapped.__returns_acontextmanager__ = True
 
         check(acm_wrapped, "async-with")
+
+    if have_asynccontextmanager:
+        @asynccontextmanager
+        async def acm():  # pragma: no cover
+            yield ''
+
+        check(acm, "async-with")
 
     # A chain with complex overrides. We ignore the intermediate generator and
     # async function, because the outermost one is a contextmanager -- but we

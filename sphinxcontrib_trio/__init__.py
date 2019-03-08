@@ -88,6 +88,7 @@ except ImportError:
             return False
 
 CM_CODES = set()
+ACM_CODES = set()
 
 from contextlib import contextmanager
 CM_CODES.add(contextmanager(None).__code__)
@@ -98,6 +99,13 @@ except ImportError:
     pass
 else:
     CM_CODES.add(contextmanager2(None).__code__)
+
+try:
+    from contextlib import asynccontextmanager
+except ImportError:
+    pass
+else:
+    ACM_CODES.add(asynccontextmanager(None).__code__)
 
 extended_function_option_spec = {
     "async": directives.flag,
@@ -264,6 +272,8 @@ def sniff_options(obj):
                 options.add("with")
             if getattr(obj, "__returns_contextmanager__", False):
                 options.add("with")
+            if getattr(obj, "__code__", None) in ACM_CODES:
+                options.add("async-with")
             if getattr(obj, "__returns_acontextmanager__", False):
                 options.add("async-with")
         if hasattr(obj, "__wrapped__"):
