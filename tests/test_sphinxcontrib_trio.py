@@ -146,7 +146,7 @@ def test_sniff_options():
     if have_asynccontextmanager:
         @asynccontextmanager
         async def acm():  # pragma: no cover
-            yield_()
+            pass
 
         check(acm, "async-with")
 
