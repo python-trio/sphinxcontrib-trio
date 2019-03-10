@@ -144,10 +144,7 @@ def test_sniff_options():
         check(acm_wrapped, "async-with")
 
     if have_asynccontextmanager:
-        @asynccontextmanager
-        async def acm():  # pragma: no cover
-            pass
-
+        acm = asynccontextmanager(agen_native)
         check(acm, "async-with")
 
     # A chain with complex overrides. We ignore the intermediate generator and

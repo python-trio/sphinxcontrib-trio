@@ -121,7 +121,7 @@ Autodetection heuristics
 * ``:async-with:`` is autodetected for:
 
   * functions decorated with `contextlib.asynccontextmanager
-    <https://docs.python.org/3/library/contextlib.html#contextlib.asynccontextmanager>`__
+    <https://docs.python.org/3/library/contextlib.html#contextlib.asynccontextmanager>`__,
 
   * functions that have an attribute ``__returns_acontextmanager__`` 
     (note the ``a``) with a truthy value.
