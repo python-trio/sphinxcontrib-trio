@@ -30,9 +30,6 @@ class ExampleClass(abc.ABC):
     async def asyncmethod(self):
         pass
 
-    # Not handled by sphinxcontrib-trio, but sphinx 2.1 tried to get us to
-    # handle it (see gh-23), so we include it here to make sure it doesn't
-    # crash
     @property
     def property_(self):
         pass

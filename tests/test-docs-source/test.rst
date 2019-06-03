@@ -101,7 +101,7 @@ Check all the formatting logic
       <em class="property">async with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
 
 
-This one checks that there's no parentheses:
+This one checks that decorators don't normally have parentheses:
 
 .. note::
 
@@ -121,6 +121,19 @@ But if you do have arguments, they're displayed
    .. code-block:: none
 
       <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em>
+
+
+Same for properties, in case someone uses `.. method:: :property:`
+(instead of the more usual `.. data::`), or sphinx 2.1 uses it for us:
+
+.. note::
+
+  .. method:: foo()
+     :property:
+
+  .. code-block:: none
+
+     <code class="(sig-name )?descname">foo</code></dt>
 
 
 .. note::

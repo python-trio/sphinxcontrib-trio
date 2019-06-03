@@ -111,7 +111,7 @@ extended_method_option_spec = {
     "abstractmethod": directives.flag,
     "staticmethod": directives.flag,
     "classmethod": directives.flag,
-    #"property": directives.flag,
+    "property": directives.flag,
 }
 
 autodoc_option_spec = {
@@ -124,8 +124,8 @@ autodoc_option_spec = {
 
 class ExtendedCallableMixin:
     def needs_arglist(self):
-        # if "property" in self.options:
-        #     return False
+        if "property" in self.options:
+            return False
         if ("decorator" in self.options
                 or self.objtype in ["decorator", "decoratormethod"]):
             return False
