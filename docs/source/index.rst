@@ -298,6 +298,21 @@ Revision history
 
 .. towncrier release notes start
 
+Sphinxcontrib_Trio 1.1.0 (2019-06-03)
++++++++++++++++++++++++++++++++++++++
+
+Features
+~~~~~~~~
+
+- Added support for Sphinx 2.1. (`#23 <https://github.com/python-trio/sphinxcontrib-trio/issues/23>`__)
+
+
+Deprecations and Removals
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Drop support for Sphinx 1.6 and earlier. (`#87 <https://github.com/python-trio/sphinxcontrib-trio/issues/87>`__)
+
+
 Sphinxcontrib_Trio 1.0.2 (2019-01-27)
 +++++++++++++++++++++++++++++++++++++
 
