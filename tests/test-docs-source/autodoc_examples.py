@@ -30,6 +30,9 @@ class ExampleClass(abc.ABC):
     async def asyncmethod(self):
         pass
 
+    @property
+    def property_(self):
+        pass
 
 class ExampleClassForOrder:
     async def d_asyncmethod(self):

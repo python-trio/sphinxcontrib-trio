@@ -63,7 +63,7 @@ from docutils.parsers.rst import directives
 from sphinx import addnodes
 from sphinx.domains.python import PyModulelevel, PyClassmember
 from sphinx.ext.autodoc import (
-    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options,
+    FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options, ModuleLevelDocumenter
 )
 
 import inspect
@@ -111,7 +111,7 @@ extended_method_option_spec = {
     "abstractmethod": directives.flag,
     "staticmethod": directives.flag,
     "classmethod": directives.flag,
-    #"property": directives.flag,
+    "property": directives.flag,
 }
 
 autodoc_option_spec = {
@@ -124,8 +124,8 @@ autodoc_option_spec = {
 
 class ExtendedCallableMixin:
     def needs_arglist(self):
-        # if "property" in self.options:
-        #     return False
+        if "property" in self.options:
+            return False
         if ("decorator" in self.options
                 or self.objtype in ["decorator", "decoratormethod"]):
             return False
@@ -309,7 +309,11 @@ class ExtendedFunctionDocumenter(FunctionDocumenter):
     }
 
     def add_directive_header(self, sig):
-        super().add_directive_header(sig)
+        # We can't call super() here, because we want to *skip* executing
+        # FunctionDocumenter.add_directive_header, because starting in Sphinx
+        # 2.1 it does its own sniffing, which is worse than ours and will
+        # break ours. So we jump straight to the superclass.
+        ModuleLevelDocumenter.add_directive_header(self, sig)
         passthrough_option_lines(self, extended_function_option_spec)
 
     def import_object(self):
@@ -329,7 +333,11 @@ class ExtendedMethodDocumenter(MethodDocumenter):
     }
 
     def add_directive_header(self, sig):
-        super().add_directive_header(sig)
+        # We can't call super() here, because we want to *skip* executing
+        # FunctionDocumenter.add_directive_header, because starting in Sphinx
+        # 2.1 it does its own sniffing, which is worse than ours and will
+        # break ours. So we jump straight to the superclass.
+        ClassLevelDocumenter.add_directive_header(self, sig)
         passthrough_option_lines(self, extended_method_option_spec)
 
     def import_object(self):

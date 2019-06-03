@@ -25,7 +25,7 @@ Basic smoke tests
 
    .. code-block:: none
 
-      <em class="property">await </em><code class="descname">foo</code>
+      <em class="property">await </em><code class="(sig-name )?descname">foo</code>
 
 
 .. warning::
@@ -34,7 +34,7 @@ Basic smoke tests
 
    .. code-block:: none
 
-      <em class="property">await </em><code class="descname">foo</code>
+      <em class="property">await </em><code class="(sig-name )?descname">foo</code>
 
 
 Check all the formatting logic
@@ -49,7 +49,7 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">abstractmethod staticmethod await </em><code class="descname">foo</code>
+      <em class="property">abstractmethod staticmethod await </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -59,7 +59,7 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">classmethod </em><code class="descname">foo</code>
+      <em class="property">classmethod </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -69,7 +69,7 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">with </em><code class="descname">foo</code>
+      <em class="property">with </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -79,7 +79,7 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">with </em><code class="descname">foo</code><span class="sig-paren">(</span><em>bar</em><span class="sig-paren">)</span><em class="property">&nbsp;as baz</em>
+      <em class="property">with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
 
 .. note::
 
@@ -88,7 +88,7 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">async with </em><code class="descname">foo</code>
+      <em class="property">async with </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -98,10 +98,10 @@ Check all the formatting logic
 
    .. code-block:: none
 
-      <em class="property">async with </em><code class="descname">foo</code><span class="sig-paren">(</span><em>bar</em><span class="sig-paren">)</span><em class="property">&nbsp;as baz</em>
+      <em class="property">async with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
 
 
-This one checks that there's no parentheses:
+This one checks that decorators don't normally have parentheses:
 
 .. note::
 
@@ -109,7 +109,7 @@ This one checks that there's no parentheses:
 
    .. code-block:: none
 
-      <code class="descclassname">@</code><code class="descname">foo</code></dt>
+      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code></dt>
 
 
 But if you do have arguments, they're displayed
@@ -120,7 +120,20 @@ But if you do have arguments, they're displayed
 
    .. code-block:: none
 
-      <code class="descclassname">@</code><code class="descname">foo</code><span class="sig-paren">(</span><em>bar</em>
+      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em>
+
+
+Same for properties, in case someone uses `.. method:: :property:`
+(instead of the more usual `.. data::`), or sphinx 2.1 uses it for us:
+
+.. note::
+
+  .. method:: foo()
+     :property:
+
+  .. code-block:: none
+
+     <code class="(sig-name )?descname">foo</code></dt>
 
 
 .. note::
@@ -130,7 +143,7 @@ But if you do have arguments, they're displayed
 
    .. code-block:: none
 
-      <em class="property">for ... in </em><code class="descname">foo</code>
+      <em class="property">for ... in </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -140,7 +153,7 @@ But if you do have arguments, they're displayed
 
    .. code-block:: none
 
-      <em class="property">for baz in </em><code class="descname">foo</code>
+      <em class="property">for baz in </em><code class="(sig-name )?descname">foo</code>
 
 .. note::
 
@@ -149,7 +162,7 @@ But if you do have arguments, they're displayed
 
    .. code-block:: none
 
-      <em class="property">async for ... in </em><code class="descname">foo</code>
+      <em class="property">async for ... in </em><code class="(sig-name )?descname">foo</code>
 
 
 .. note::
@@ -159,7 +172,7 @@ But if you do have arguments, they're displayed
 
    .. code-block:: none
 
-      <em class="property">async for baz in </em><code class="descname">foo</code>
+      <em class="property">async for baz in </em><code class="(sig-name )?descname">foo</code>
 
 
 Backwards compatibility directives
@@ -171,7 +184,7 @@ Backwards compatibility directives
 
    .. code-block:: none
 
-      <code class="descclassname">@</code><code class="descname">foo</code>
+      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code>
 
 .. note::
 
@@ -179,7 +192,7 @@ Backwards compatibility directives
 
    .. code-block:: none
 
-      <code class="descclassname">@</code><code class="descname">foo</code>
+      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code>
 
 .. note::
 
@@ -187,7 +200,7 @@ Backwards compatibility directives
 
    .. code-block:: none
 
-      <em class="property">classmethod </em><code class="descname">foo</code>
+      <em class="property">classmethod </em><code class="(sig-name )?descname">foo</code>
 
 .. note::
 
@@ -195,7 +208,7 @@ Backwards compatibility directives
 
    .. code-block:: none
 
-      <em class="property">staticmethod </em><code class="descname">foo</code>
+      <em class="property">staticmethod </em><code class="(sig-name )?descname">foo</code>
 
 
 Autodoc
@@ -211,7 +224,7 @@ Autodoc smoke tests:
 
    .. code-block:: none
 
-      <code class="descclassname">autodoc_examples.</code><code class="descname">basic</code>
+      <code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">basic</code>
 
 .. warning::
 
@@ -219,7 +232,7 @@ Autodoc smoke tests:
 
    .. code-block:: none
 
-      </em><code class="descname">basic</code>
+      </em><code class="(sig-name )?descname">basic</code>
 
 .. note::
 
@@ -227,7 +240,7 @@ Autodoc smoke tests:
 
    .. code-block:: none
 
-      <em class="property">await </em><code class="descclassname">autodoc_examples.</code><code class="descname">asyncfn</code>
+      <em class="property">await </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">asyncfn</code>
 
 We don't bother testing every bizarro combination here, because we
 have unit tests for that.
@@ -245,19 +258,19 @@ from you, and (b) you have to integrate correctly with autodoc for
 
    .. code-block:: none
 
-      <em class="property">abstractmethod </em><code class="descname">abstractmethod_</code>
+      <em class="property">abstractmethod </em><code class="(sig-name )?descname">abstractmethod_</code>
 
    .. code-block:: none
 
-      <em class="property">abstractmethod classmethod </em><code class="descname">classabstract</code>
+      <em class="property">abstractmethod classmethod </em><code class="(sig-name )?descname">classabstract</code>
 
    .. code-block:: none
 
-      <em class="property">classmethod </em><code class="descname">classmethod_</code>
+      <em class="property">classmethod </em><code class="(sig-name )?descname">classmethod_</code>
 
    .. code-block:: none
 
-      <em class="property">await </em><code class="descname">asyncmethod</code>
+      <em class="property">await </em><code class="(sig-name )?descname">asyncmethod</code>
 
 
 Autodoc + order by source:
@@ -277,7 +290,7 @@ Autodoc + explicit options:
 
    .. code-block:: none
 
-      <em class="property">for ... in await </em><code class="descclassname">autodoc_examples.</code><code class="descname">basic</code>
+      <em class="property">for ... in await </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">basic</code>
 
 Overriding sniffed ``:for:`` with ``:for: arg``:
 
@@ -287,7 +300,7 @@ Overriding sniffed ``:for:`` with ``:for: arg``:
 
    .. code-block:: none
 
-      <em class="property">for ... in </em><code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+      <em class="property">for ... in </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">gen</code>
 
 .. note::
 
@@ -296,7 +309,7 @@ Overriding sniffed ``:for:`` with ``:for: arg``:
 
    .. code-block:: none
 
-      <em class="property">for arg in </em><code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+      <em class="property">for arg in </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">gen</code>
 
 Testing ``:no-auto-options:``:
 
@@ -308,7 +321,7 @@ Testing ``:no-auto-options:``:
    .. code-block:: none
 
       <dt>
-      <code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+      <code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">gen</code>
 
 .. warning::
 
@@ -327,7 +340,7 @@ Testing ``:no-auto-options:``:
 
    .. code-block:: none
 
-      <em class="property">for ... in </em><code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+      <em class="property">for ... in </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">gen</code>
 
 .. note::
 
@@ -337,7 +350,7 @@ Testing ``:no-auto-options:``:
 
    .. code-block:: none
 
-      <em class="property">await </em><code class="descclassname">autodoc_examples.</code><code class="descname">gen</code>
+      <em class="property">await </em><code class="(sig-prename )?descclassname">autodoc_examples.</code><code class="(sig-name )?descname">gen</code>
 
 
 Autodoc + Autosummary
