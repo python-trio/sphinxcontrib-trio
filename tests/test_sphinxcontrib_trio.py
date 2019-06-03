@@ -10,6 +10,7 @@ from functools import wraps
 import difflib
 import shutil
 from pathlib import Path
+import re
 
 import lxml.html
 
@@ -206,7 +207,7 @@ def test_end_to_end(tmpdir):
         test_content = test_content.replace("\u2026", "...")
         for check in checks:
             try:
-                assert check in test_content
+                assert re.search(check, test_content) is not None
             except:
                 print("failed check")
                 print()
