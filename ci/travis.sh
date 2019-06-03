@@ -3,7 +3,6 @@
 set -exu -o pipefail
 
 pip install -U pip setuptools wheel
-pip install "sphinx ${SPHINX_VERSION}"
 
 python setup.py sdist --formats=zip
 pip install dist/*.zip

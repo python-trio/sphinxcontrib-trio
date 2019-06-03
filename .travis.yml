@@ -3,13 +3,7 @@ python:
   - 3.5
   - 3.6
   - 3.7
-env:
-  - SPHINX_VERSION="~=1.6.0"
-  - SPHINX_VERSION=">=1.7"
 dist: xenial
-# Only so dist: xenial works
-# (required as of July 2018. Hopefully Travis will fix this at some point...)
-sudo: true
 
 script:
   - ci/travis.sh
