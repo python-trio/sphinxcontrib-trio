@@ -16,6 +16,10 @@ sphinx-build -nW  -b html source build
 popd
 
 pip install -Ur test-requirements.txt
+# https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+if [ -n "${OLD_SPHINX+x}" ]; then
+    pip install "sphinx == ${OLD_SPHINX}.*"
+fi
 mkdir empty
 pushd empty
 INSTALLDIR=$(python -c "import os, sphinxcontrib_trio; print(os.path.dirname(sphinxcontrib_trio.__file__))")
