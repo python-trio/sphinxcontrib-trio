@@ -4,4 +4,4 @@ async_generator
 contextlib2
 lxml
 cssselect
-sphinx < 2.1
+sphinx
