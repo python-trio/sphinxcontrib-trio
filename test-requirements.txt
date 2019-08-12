@@ -19,7 +19,7 @@ idna==2.8                 # via requests
 imagesize==1.1.0          # via sphinx
 importlib-metadata==0.19  # via pluggy, pytest
 jinja2==2.10.1            # via sphinx
-lxml==4.4.0
+lxml==4.4.1
 markupsafe==1.1.1         # via jinja2
 more-itertools==7.2.0     # via pytest
 packaging==19.1           # via pytest, sphinx
