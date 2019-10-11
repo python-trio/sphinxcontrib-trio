@@ -11,7 +11,7 @@ attrs==19.2.0             # via pytest
 babel==2.7.0              # via sphinx
 certifi==2019.9.11        # via requests
 chardet==3.0.4            # via requests
-contextlib2==0.6.0
+contextlib2==0.6.0.post1
 coverage==4.5.4           # via pytest-cov
 cssselect==1.1.0
 docutils==0.15.2          # via sphinx
