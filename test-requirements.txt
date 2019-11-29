@@ -8,7 +8,7 @@ alabaster==0.7.12         # via sphinx
 async-generator==1.10
 attrs==19.3.0             # via pytest
 babel==2.7.0              # via sphinx
-certifi==2019.9.11        # via requests
+certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
 contextlib2==0.6.0.post1
 coverage==4.5.4           # via pytest-cov
