@@ -15,7 +15,7 @@ coverage==5.0.1           # via pytest-cov
 cssselect==1.1.0
 docutils==0.15.2          # via sphinx
 idna==2.8                 # via requests
-imagesize==1.1.0          # via sphinx
+imagesize==1.2.0          # via sphinx
 jinja2==2.10.3            # via sphinx
 lxml==4.4.2
 markupsafe==1.1.1         # via jinja2
