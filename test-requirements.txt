@@ -13,7 +13,7 @@ chardet==3.0.4            # via requests
 contextlib2==0.6.0.post1
 coverage==5.0.3           # via pytest-cov
 cssselect==1.1.0
-docutils==0.15.2          # via sphinx
+docutils==0.16            # via sphinx
 idna==2.8                 # via requests
 imagesize==1.2.0          # via sphinx
 jinja2==2.10.3            # via sphinx
