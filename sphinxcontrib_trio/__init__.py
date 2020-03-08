@@ -61,7 +61,11 @@ from ._version import __version__
 
 from docutils.parsers.rst import directives
 from sphinx import addnodes
-from sphinx.domains.python import PyModulelevel, PyClassmember
+try:
+    from sphinx.domains.python import PyFunction
+except ImportError:
+    from sphinx.domains.python import PyModulelevel as PyFunction
+from sphinx.domains.python import PyClassmember
 from sphinx.ext.autodoc import (
     FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options, ModuleLevelDocumenter
 )
@@ -208,9 +212,9 @@ class ExtendedCallableMixin:
 
         return ret
 
-class ExtendedPyFunction(ExtendedCallableMixin, PyModulelevel):
+class ExtendedPyFunction(ExtendedCallableMixin, PyFunction):
     option_spec = {
-        **PyModulelevel.option_spec,
+        **PyFunction.option_spec,
         **extended_function_option_spec,
     }
 
