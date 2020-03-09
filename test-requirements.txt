@@ -23,7 +23,7 @@ more-itertools==8.2.0     # via pytest
 packaging==20.3           # via pytest, sphinx
 pluggy==0.13.1            # via pytest
 py==1.8.1                 # via pytest
-pygments==2.5.2           # via sphinx
+pygments==2.6.1           # via sphinx
 pyparsing==2.4.6          # via packaging
 pytest-cov==2.8.1         # via -r test-requirements.in
 pytest==5.3.5             # via -r test-requirements.in, pytest-cov
