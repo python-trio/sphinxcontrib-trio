@@ -359,7 +359,11 @@ class ExtendedMethodDocumenter(MethodDocumenter):
         #
         # returns a regular function. We want to detect
         # classmethod/staticmethod, so we need to go through __dict__.
-        obj = self.parent.__dict__.get(self.object_name)
+        # Not using 'getattr' here means we have to manually resolve the MRO entires too.
+        for cls in inspect.getmro(self.parent):
+            obj = cls.__dict__.get(self.object_name)
+            if obj is not None:
+                break
         # autodoc likes to re-use dicts here for some reason (!?!)
         self.options = Options(self.options)
         update_with_sniffed_options(obj, self.options)
