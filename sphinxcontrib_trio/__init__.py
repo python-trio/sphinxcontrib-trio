@@ -126,6 +126,7 @@ autodoc_option_spec = {
 # Extending the basic function and method directives
 ################################################################
 
+
 class ExtendedCallableMixin:
     def needs_arglist(self):
         if "property" in self.options:
@@ -212,11 +213,13 @@ class ExtendedCallableMixin:
 
         return ret
 
+
 class ExtendedPyFunction(ExtendedCallableMixin, PyFunction):
     option_spec = {
         **PyFunction.option_spec,
         **extended_function_option_spec,
     }
+
 
 class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
     option_spec = {
@@ -238,6 +241,7 @@ class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
 # contextlib.contextmanager). So once we see one of these, we stop looking for
 # the others.
 EXCLUSIVE_OPTIONS = {"async", "for", "async-for", "with", "async-with"}
+
 
 def sniff_options(obj):
     options = set()
@@ -279,6 +283,7 @@ def sniff_options(obj):
 
     return options
 
+
 def update_with_sniffed_options(obj, option_dict):
     if "no-auto-options" in option_dict:
         return
@@ -293,6 +298,7 @@ def update_with_sniffed_options(obj, option_dict):
         # with our autodetected attr["for"] = None. So we use setdefault.
         option_dict.setdefault(attr, None)
 
+
 def passthrough_option_lines(self, option_spec):
     sourcename = self.get_sourcename()
     for option in option_spec:
@@ -302,6 +308,7 @@ def passthrough_option_lines(self, option_spec):
             else:
                 line = "   :{}:".format(option)
             self.add_line(line, sourcename)
+
 
 class ExtendedFunctionDocumenter(FunctionDocumenter):
     priority = FunctionDocumenter.priority + 1
@@ -326,6 +333,7 @@ class ExtendedFunctionDocumenter(FunctionDocumenter):
         self.options = Options(self.options)
         update_with_sniffed_options(self.object, self.options)
         return ret
+
 
 class ExtendedMethodDocumenter(MethodDocumenter):
     priority = MethodDocumenter.priority + 1
@@ -376,6 +384,7 @@ class ExtendedMethodDocumenter(MethodDocumenter):
 ################################################################
 # Register everything
 ################################################################
+
 
 def setup(app):
     app.add_directive_to_domain('py', 'function', ExtendedPyFunction)
