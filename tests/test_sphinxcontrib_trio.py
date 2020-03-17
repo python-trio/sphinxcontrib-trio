@@ -154,19 +154,25 @@ def test_sniff_options():
     # A chain with complex overrides. We ignore the intermediate generator and
     # async function, because the outermost one is a contextmanager -- but we
     # still pick up the staticmethod at the end of the chain.
-    @staticmethod
+    @staticmethod  # type: ignore
     def messy0():  # pragma: no cover
         pass
+
     async def messy1():  # pragma: no cover
         pass
-    messy1.__wrapped__ = messy0
+
+    setattr(messy1, "__wrapped__", messy0)
+
     def messy2():  # pragma: no cover
         yield
-    messy2.__wrapped__ = messy1
+
+    setattr(messy2, "__wrapped__", messy1)
+
     def messy3():  # pragma: no cover
         pass
-    messy3.__wrapped__ = messy2
-    messy3.__returns_contextmanager__ = True
+
+    setattr(messy3, "__wrapped__", messy2)
+    setattr(messy3, "__returns_contextmanager__", True)
     check(messy3, "with", "staticmethod")
 
 
