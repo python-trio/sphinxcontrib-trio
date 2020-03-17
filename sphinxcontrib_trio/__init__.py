@@ -65,7 +65,7 @@ try:
     from sphinx.domains.python import PyFunction
 except ImportError:
     from sphinx.domains.python import PyModulelevel as PyFunction
-from sphinx.domains.python import PyClassmember
+from sphinx.domains.python import PyClassmember, PyObject
 from sphinx.ext.autodoc import (
     FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options, ModuleLevelDocumenter
 )
@@ -85,21 +85,21 @@ CM_CODES = set()
 ACM_CODES = set()
 
 from contextlib import contextmanager
-CM_CODES.add(contextmanager(None).__code__)
+CM_CODES.add(contextmanager(None).__code__)  # type: ignore
 
 try:
     from contextlib2 import contextmanager as contextmanager2
 except ImportError:
     pass
 else:
-    CM_CODES.add(contextmanager2(None).__code__)
+    CM_CODES.add(contextmanager2(None).__code__)  # type: ignore
 
 try:
     from contextlib import asynccontextmanager
 except ImportError:
     pass
 else:
-    ACM_CODES.add(asynccontextmanager(None).__code__)
+    ACM_CODES.add(asynccontextmanager(None).__code__)  # type: ignore
 
 extended_function_option_spec = {
     "async": directives.flag,
@@ -127,7 +127,7 @@ autodoc_option_spec = {
 ################################################################
 
 
-class ExtendedCallableMixin:
+class ExtendedCallableMixin(PyObject):  # inherit PyObject to satisfy MyPy
     def needs_arglist(self):
         if "property" in self.options:
             return False
@@ -405,6 +405,10 @@ def setup(app):
     # A monkey-patch to VariableCommentPicker to make autodoc_member_order = 'bysource' work.
     from sphinx.pycode.parser import VariableCommentPicker
     if not hasattr(VariableCommentPicker, "visit_AsyncFunctionDef"):  # pragma: no branch
-        VariableCommentPicker.visit_AsyncFunctionDef = VariableCommentPicker.visit_FunctionDef
+        setattr(
+            VariableCommentPicker,
+            "visit_AsyncFunctionDef",
+            VariableCommentPicker.visit_FunctionDef,
+        )
 
     return {'version': __version__, 'parallel_read_safe': True}
