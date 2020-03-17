@@ -357,21 +357,9 @@ class ExtendedMethodDocumenter(MethodDocumenter):
         # addition to just importing. But we do our own sniffing and just want
         # the import, so we un-override it.
         ret = ClassLevelDocumenter.import_object(self)
-        # If you have a classmethod or staticmethod, then
-        #
-        #   Class.__dict__["name"]
-        #
-        # returns the classmethod/staticmethod object, but
-        #
-        #   getattr(Class, "name")
-        #
-        # returns a regular function. We want to detect
-        # classmethod/staticmethod, so we need to go through __dict__.
-        # Not using 'getattr' here means we have to manually resolve the MRO entires too.
-        for cls in inspect.getmro(self.parent):
-            obj = cls.__dict__.get(self.object_name)
-            if obj is not None:
-                break
+        # Use 'inspect.getattr_static' to properly detect class or static methods.
+        # This also resolves the MRO entries for subclasses.
+        obj = inspect.getattr_static(self.parent, self.object_name)
         # autodoc likes to re-use dicts here for some reason (!?!)
         self.options = Options(self.options)
         update_with_sniffed_options(obj, self.options)
