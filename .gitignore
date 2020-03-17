@@ -57,6 +57,9 @@ coverage.xml
 *.log
 *.pot
 
+# VSCode stuff:
+.vscode
+
 # MyPy stuff:
 .mypy_cache
 
