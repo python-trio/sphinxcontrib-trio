@@ -57,5 +57,8 @@ coverage.xml
 *.log
 *.pot
 
+# MyPy stuff:
+.mypy_cache
+
 # Sphinx documentation
 doc/_build/
