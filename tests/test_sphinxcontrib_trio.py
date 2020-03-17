@@ -1,15 +1,14 @@
-import pytest
-
-import subprocess
-import sys
-import textwrap
-import abc
-from contextlib import contextmanager
-from functools import wraps
-import shutil
-from pathlib import Path
 import re
+import abc
+import sys
+import shutil
+import subprocess
+import textwrap
+from pathlib import Path
+from functools import wraps
+from contextlib import contextmanager
 
+import pytest
 import lxml.html
 
 try:
