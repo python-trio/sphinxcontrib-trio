@@ -69,10 +69,10 @@ def test_sniff_options():
         async def classasync(cls):
             pass
 
-    check(Basic.__dict__["a"])
-    check(Basic.__dict__["b"], "classmethod")
-    check(Basic.__dict__["c"], "staticmethod")
-    check(Basic.__dict__["classasync"], "classmethod", "async")
+    check(inspect.getattr_static(Basic, "a"))
+    check(inspect.getattr_static(Basic, "b"), "classmethod")
+    check(inspect.getattr_static(Basic, "c"), "staticmethod")
+    check(inspect.getattr_static(Basic, "classasync"), "classmethod", "async")
 
     class Abstract(abc.ABC):  # pragma: no cover
         @abc.abstractmethod
@@ -89,10 +89,11 @@ def test_sniff_options():
         async def abstaticasync(self):
             pass
 
-    check(Abstract.__dict__["abmeth"], "abstractmethod")
-    check(Abstract.__dict__["abstatic"], "abstractmethod", "staticmethod")
-    check(Abstract.__dict__["abstaticasync"],
-          "abstractmethod", "staticmethod", "async")
+    check(inspect.getattr_static(Basic, "abmeth"), "abstractmethod")
+    check(inspect.getattr_static(Basic, "abstatic"), "abstractmethod", "staticmethod")
+    check(
+        inspect.getattr_static(Basic, "abstaticasync"), "abstractmethod", "staticmethod", "async"
+    )
 
     async def async_fn():  # pragma: no cover
         pass
