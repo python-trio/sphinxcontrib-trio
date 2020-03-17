@@ -56,7 +56,7 @@ def test_sniff_options():
             pass
 
         @classmethod
-        def b(self):
+        def b(cls):
             pass
 
         @staticmethod
@@ -64,7 +64,7 @@ def test_sniff_options():
             pass
 
         @classmethod
-        async def classasync(self):
+        async def classasync(cls):
             pass
 
     check(Basic.__dict__["a"])
