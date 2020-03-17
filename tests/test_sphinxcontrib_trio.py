@@ -208,7 +208,7 @@ def test_end_to_end(tmpdir):
         for check in checks:
             try:
                 assert re.search(check, test_content) is not None
-            except:
+            except AssertionError:
                 print("failed check")
                 print()
                 print(repr(check))
