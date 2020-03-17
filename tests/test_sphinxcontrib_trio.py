@@ -2,9 +2,11 @@ import re
 import abc
 import sys
 import shutil
-import subprocess
+import inspect
 import textwrap
+import subprocess
 from pathlib import Path
+from typing import Callable
 from functools import wraps
 from contextlib import contextmanager
 
@@ -35,6 +37,7 @@ else:
 from sphinxcontrib_trio import sniff_options
 
 if sys.version_info >= (3, 6):
+    agen_native: Callable = lambda: None  # satisfy linter
     exec(textwrap.dedent("""
         async def agen_native():
             yield
@@ -122,12 +125,12 @@ def test_sniff_options():
 
     def manual_cm():  # pragma: no cover
         pass
-    manual_cm.__returns_contextmanager__ = True
+    setattr(manual_cm, "__returns_contextmanager__", True)
     check(manual_cm, "with")
 
     def manual_acm():  # pragma: no cover
         pass
-    manual_acm.__returns_acontextmanager__ = True
+    setattr(manual_acm, "__returns_acontextmanager__", True)
     check(manual_acm, "async-with")
 
     if have_async_generator:
@@ -138,7 +141,7 @@ def test_sniff_options():
         @wraps(acm_gen)
         def acm_wrapped():  # pragma: no cover
             pass
-        acm_wrapped.__returns_acontextmanager__ = True
+        setattr(acm_wrapped, "__returns_acontextmanager__", True)
 
         check(acm_wrapped, "async-with")
 
@@ -241,7 +244,9 @@ def test_member_order(tmpdir):
 
     print("\n-- test case member order by source. --\n")
 
-    methods = tree.cssselect(r"#autodoc_examples\.ExampleClassForOrder")[0].getnext().cssselect("dt")
+    methods = (
+        tree.cssselect(r"#autodoc_examples\.ExampleClassForOrder")[0].getnext().cssselect("dt")
+    )
 
     names = [method.get("id").split(".")[-1] for method in methods]
 
