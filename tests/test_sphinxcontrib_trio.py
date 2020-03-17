@@ -89,10 +89,11 @@ def test_sniff_options():
         async def abstaticasync(self):
             pass
 
-    check(inspect.getattr_static(Basic, "abmeth"), "abstractmethod")
-    check(inspect.getattr_static(Basic, "abstatic"), "abstractmethod", "staticmethod")
+    check(inspect.getattr_static(Abstract, "abmeth"), "abstractmethod")
+    check(inspect.getattr_static(Abstract, "abstatic"), "abstractmethod", "staticmethod")
     check(
-        inspect.getattr_static(Basic, "abstaticasync"), "abstractmethod", "staticmethod", "async"
+        inspect.getattr_static(Abstract, "abstaticasync"),
+        "abstractmethod", "staticmethod", "async",
     )
 
     async def async_fn():  # pragma: no cover
