@@ -6,8 +6,8 @@ import inspect
 import textwrap
 import subprocess
 from pathlib import Path
-from typing import Callable
 from functools import wraps
+from typing import Callable, cast
 from contextlib import contextmanager
 
 import pytest
@@ -37,7 +37,7 @@ else:
 from sphinxcontrib_trio import sniff_options
 
 if sys.version_info >= (3, 6):
-    agen_native: Callable = lambda: None  # satisfy linter
+    agen_native = cast(Callable, lambda: None)  # satisfy linter
     exec(textwrap.dedent("""
         async def agen_native():
             yield
