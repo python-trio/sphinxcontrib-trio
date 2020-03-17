@@ -1,13 +1,11 @@
 import pytest
 
 import subprocess
-import os.path
 import sys
 import textwrap
 import abc
 from contextlib import contextmanager
 from functools import wraps
-import difflib
 import shutil
 from pathlib import Path
 import re
@@ -42,6 +40,7 @@ if sys.version_info >= (3, 6):
         async def agen_native():
             yield
     """))
+
 
 def test_sniff_options():
     def check(obj, *expected):
@@ -165,6 +164,7 @@ def test_sniff_options():
     messy3.__wrapped__ = messy2
     messy3.__returns_contextmanager__ = True
     check(messy3, "with", "staticmethod")
+
 
 # Hopefully the next sphinx release will have dedicated pytest-based testing
 # utilities:
