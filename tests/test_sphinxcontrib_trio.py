@@ -127,12 +127,12 @@ def test_sniff_options():
 
     def manual_cm():  # pragma: no cover
         pass
-    setattr(manual_cm, "__returns_contextmanager__", True)
+    manual_cm.__returns_contextmanager__ = True  # type: ignore
     check(manual_cm, "with")
 
     def manual_acm():  # pragma: no cover
         pass
-    setattr(manual_acm, "__returns_acontextmanager__", True)
+    manual_acm.__returns_acontextmanager__ = True  # type: ignore
     check(manual_acm, "async-with")
 
     if have_async_generator:
@@ -143,7 +143,7 @@ def test_sniff_options():
         @wraps(acm_gen)
         def acm_wrapped():  # pragma: no cover
             pass
-        setattr(acm_wrapped, "__returns_acontextmanager__", True)
+        acm_wrapped.__returns_acontextmanager__ = True  # type: ignore
 
         check(acm_wrapped, "async-with")
 
@@ -161,18 +161,18 @@ def test_sniff_options():
     async def messy1():  # pragma: no cover
         pass
 
-    setattr(messy1, "__wrapped__", messy0)
+    messy1.__wrapped__ = messy0  # type: ignore
 
     def messy2():  # pragma: no cover
         yield
 
-    setattr(messy2, "__wrapped__", messy1)
+    messy2.__wrapped__ = messy1  # type: ignore
 
     def messy3():  # pragma: no cover
         pass
 
-    setattr(messy3, "__wrapped__", messy2)
-    setattr(messy3, "__returns_contextmanager__", True)
+    messy3.__wrapped__ = messy2  # type: ignore
+    messy3.__returns_contextmanager__ = True  # type: ignore
     check(messy3, "with", "staticmethod")
 
 
