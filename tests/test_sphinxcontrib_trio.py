@@ -192,7 +192,7 @@ def test_end_to_end(tmpdir):
 
     tree = lxml.html.parse(str(tmpdir / "out" / "test.html")).getroot()
 
-    def do_html_test(node):
+    def do_html_test(node, *, expect_match):
         original_content = node.text_content()
         print("\n-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
 
@@ -217,7 +217,10 @@ def test_end_to_end(tmpdir):
         test_content = test_content.replace("\u2026", "...")
         for check in checks:
             try:
-                assert re.search(check, test_content) is not None
+                if expect_match:
+                    assert re.search(check, test_content) is not None
+                else:
+                    assert re.search(check, test_content) is None
             except AssertionError:
                 print("failed check")
                 print()
@@ -231,13 +234,12 @@ def test_end_to_end(tmpdir):
     print("\n-- NEGATIVE (WARNING) TESTS --\n")
 
     for warning in tree.cssselect(".warning"):
-        with pytest.raises(AssertionError):
-            do_html_test(warning)
+        do_html_test(warning, expect_match=False)
 
     print("\n-- POSITIVE (NOTE) TESTS --\n")
 
     for note in tree.cssselect(".note"):
-        do_html_test(note)
+        do_html_test(note, expect_match=True)
 
 
 def test_member_order(tmpdir):
