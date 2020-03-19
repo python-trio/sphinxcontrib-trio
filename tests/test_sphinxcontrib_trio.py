@@ -10,7 +10,6 @@ from functools import wraps
 from typing import Callable, cast
 from contextlib import contextmanager
 
-import pytest
 import lxml.html
 
 try:
