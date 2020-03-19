@@ -307,6 +307,13 @@ Autodoc + inherited methods:
 
       <em class="property">await </em><code class="(sig-name )?descname">a_syncmethod</code>
 
+.. warning::
+
+   .. autoclass:: ExampleInheritedSubclass
+      :members:
+      :undoc-members:
+      :inherited-members:
+
    .. code-block:: none
 
       <em class="property">await </em><code class="(sig-name )?descname">b_syncmethod</code>

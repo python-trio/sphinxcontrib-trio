@@ -194,7 +194,7 @@ def test_end_to_end(tmpdir):
 
     def do_html_test(node):
         original_content = node.text_content()
-        print("-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
+        print("\n-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
 
         check_tags = node.cssselect(".highlight-none")
         checks = []
