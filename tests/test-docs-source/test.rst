@@ -279,6 +279,8 @@ Autodoc + order by source:
    :members:
    :undoc-members:
 
+Autodoc + inherited methods:
+
 .. note::
 
    .. autoclass:: ExampleInheritedSubclass
@@ -288,19 +290,26 @@ Autodoc + order by source:
 
    .. code-block:: none
 
-      <code class="(sig-name )?descname">a_syncmethod</code>
-
-   .. code-block:: none
-
-      <code class="(sig-name )?descname">b_syncmethod</code>
-
-   .. code-block:: none
-
       <em class="property">await </em><code class="(sig-name )?descname">c_asyncmethod</code>
 
    .. code-block:: none
 
       <em class="property">await </em><code class="(sig-name )?descname">d_asyncmethod</code>
+
+.. warning::
+
+   .. autoclass:: ExampleInheritedSubclass
+      :members:
+      :undoc-members:
+      :inherited-members:
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">a_syncmethod</code>
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">b_syncmethod</code>
 
 
 Autodoc + explicit options:
