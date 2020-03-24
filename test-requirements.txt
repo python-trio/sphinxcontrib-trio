@@ -39,4 +39,4 @@ sphinxcontrib-jsmath==1.0.1  # via sphinx
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 urllib3==1.25.8           # via requests
-wcwidth==0.1.8            # via pytest
+wcwidth==0.1.9            # via pytest
