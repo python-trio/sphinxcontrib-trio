@@ -4,7 +4,7 @@
 
 Each ``note`` in this file is a test case. The ``test_end_to_end``
 function in ``test_sphinxcontrib_trio.py`` loops through the rendered
-output of each ``note``, and for eacn one it finds all the "none"
+output of each ``note``, and for each one it finds all the "none"
 code-blocks, and it makes sure that the contents of that code-block
 appears in the html source for the rest of the note.
 
@@ -278,6 +278,38 @@ Autodoc + order by source:
 .. autoclass:: ExampleClassForOrder
    :members:
    :undoc-members:
+
+Autodoc + inherited methods:
+
+.. note::
+
+   .. autoclass:: ExampleInheritedSubclass
+      :members:
+      :undoc-members:
+      :inherited-members:
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">c_asyncmethod</code>
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">d_asyncmethod</code>
+
+.. warning::
+
+   .. autoclass:: ExampleInheritedSubclass
+      :members:
+      :undoc-members:
+      :inherited-members:
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">a_syncmethod</code>
+
+   .. code-block:: none
+
+      <em class="property">await </em><code class="(sig-name )?descname">b_syncmethod</code>
 
 
 Autodoc + explicit options:

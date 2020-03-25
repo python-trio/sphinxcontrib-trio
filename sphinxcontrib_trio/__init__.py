@@ -65,7 +65,7 @@ try:
     from sphinx.domains.python import PyFunction
 except ImportError:
     from sphinx.domains.python import PyModulelevel as PyFunction
-from sphinx.domains.python import PyClassmember
+from sphinx.domains.python import PyClassmember, PyObject
 from sphinx.ext.autodoc import (
     FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options, ModuleLevelDocumenter
 )
@@ -85,21 +85,21 @@ CM_CODES = set()
 ACM_CODES = set()
 
 from contextlib import contextmanager
-CM_CODES.add(contextmanager(None).__code__)
+CM_CODES.add(contextmanager(None).__code__)  # type: ignore
 
 try:
     from contextlib2 import contextmanager as contextmanager2
 except ImportError:
     pass
 else:
-    CM_CODES.add(contextmanager2(None).__code__)
+    CM_CODES.add(contextmanager2(None).__code__)  # type: ignore
 
 try:
     from contextlib import asynccontextmanager
 except ImportError:
     pass
 else:
-    ACM_CODES.add(asynccontextmanager(None).__code__)
+    ACM_CODES.add(asynccontextmanager(None).__code__)  # type: ignore
 
 extended_function_option_spec = {
     "async": directives.flag,
@@ -126,7 +126,8 @@ autodoc_option_spec = {
 # Extending the basic function and method directives
 ################################################################
 
-class ExtendedCallableMixin:
+
+class ExtendedCallableMixin(PyObject):  # inherit PyObject to satisfy MyPy
     def needs_arglist(self):
         if "property" in self.options:
             return False
@@ -212,11 +213,13 @@ class ExtendedCallableMixin:
 
         return ret
 
+
 class ExtendedPyFunction(ExtendedCallableMixin, PyFunction):
     option_spec = {
         **PyFunction.option_spec,
         **extended_function_option_spec,
     }
+
 
 class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
     option_spec = {
@@ -238,6 +241,7 @@ class ExtendedPyMethod(ExtendedCallableMixin, PyClassmember):
 # contextlib.contextmanager). So once we see one of these, we stop looking for
 # the others.
 EXCLUSIVE_OPTIONS = {"async", "for", "async-for", "with", "async-with"}
+
 
 def sniff_options(obj):
     options = set()
@@ -279,6 +283,7 @@ def sniff_options(obj):
 
     return options
 
+
 def update_with_sniffed_options(obj, option_dict):
     if "no-auto-options" in option_dict:
         return
@@ -293,6 +298,7 @@ def update_with_sniffed_options(obj, option_dict):
         # with our autodetected attr["for"] = None. So we use setdefault.
         option_dict.setdefault(attr, None)
 
+
 def passthrough_option_lines(self, option_spec):
     sourcename = self.get_sourcename()
     for option in option_spec:
@@ -302,6 +308,7 @@ def passthrough_option_lines(self, option_spec):
             else:
                 line = "   :{}:".format(option)
             self.add_line(line, sourcename)
+
 
 class ExtendedFunctionDocumenter(FunctionDocumenter):
     priority = FunctionDocumenter.priority + 1
@@ -327,6 +334,7 @@ class ExtendedFunctionDocumenter(FunctionDocumenter):
         update_with_sniffed_options(self.object, self.options)
         return ret
 
+
 class ExtendedMethodDocumenter(MethodDocumenter):
     priority = MethodDocumenter.priority + 1
     # You can explicitly set the options in case autodetection fails
@@ -349,17 +357,9 @@ class ExtendedMethodDocumenter(MethodDocumenter):
         # addition to just importing. But we do our own sniffing and just want
         # the import, so we un-override it.
         ret = ClassLevelDocumenter.import_object(self)
-        # If you have a classmethod or staticmethod, then
-        #
-        #   Class.__dict__["name"]
-        #
-        # returns the classmethod/staticmethod object, but
-        #
-        #   getattr(Class, "name")
-        #
-        # returns a regular function. We want to detect
-        # classmethod/staticmethod, so we need to go through __dict__.
-        obj = self.parent.__dict__.get(self.object_name)
+        # Use 'inspect.getattr_static' to properly detect class or static methods.
+        # This also resolves the MRO entries for subclasses.
+        obj = inspect.getattr_static(self.parent, self.object_name)
         # autodoc likes to re-use dicts here for some reason (!?!)
         self.options = Options(self.options)
         update_with_sniffed_options(obj, self.options)
@@ -372,6 +372,7 @@ class ExtendedMethodDocumenter(MethodDocumenter):
 ################################################################
 # Register everything
 ################################################################
+
 
 def setup(app):
     app.add_directive_to_domain('py', 'function', ExtendedPyFunction)
@@ -392,6 +393,8 @@ def setup(app):
     # A monkey-patch to VariableCommentPicker to make autodoc_member_order = 'bysource' work.
     from sphinx.pycode.parser import VariableCommentPicker
     if not hasattr(VariableCommentPicker, "visit_AsyncFunctionDef"):  # pragma: no branch
-        VariableCommentPicker.visit_AsyncFunctionDef = VariableCommentPicker.visit_FunctionDef
+        VariableCommentPicker.visit_AsyncFunctionDef = (  # type: ignore
+            VariableCommentPicker.visit_FunctionDef  # type: ignore
+        )
 
     return {'version': __version__, 'parallel_read_safe': True}

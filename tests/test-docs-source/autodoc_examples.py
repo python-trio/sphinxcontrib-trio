@@ -1,10 +1,13 @@
 import abc
 
+
 def basic():
     pass
 
+
 async def asyncfn(x):
     pass
+
 
 def gen():
     yield
@@ -12,6 +15,7 @@ def gen():
 # Classes are a bit complicated for autodoc, because:
 # - there's the :members: option
 # - how you access the attributes matters
+
 
 class ExampleClass(abc.ABC):
     @abc.abstractmethod
@@ -34,6 +38,7 @@ class ExampleClass(abc.ABC):
     def property_(self):
         pass
 
+
 class ExampleClassForOrder:
     async def d_asyncmethod(self):
         pass
@@ -45,6 +50,14 @@ class ExampleClassForOrder:
         pass
 
     def b_syncmethod(self):
+        pass
+
+
+class ExampleInheritedSubclass(ExampleClassForOrder):
+    def a_syncmethod(self):
+        pass
+
+    async def c_asyncmethod(self):
         pass
 
 

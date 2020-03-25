@@ -1,16 +1,14 @@
-import pytest
-
-import subprocess
-import os.path
-import sys
-import textwrap
-import abc
-from contextlib import contextmanager
-from functools import wraps
-import difflib
-import shutil
-from pathlib import Path
 import re
+import abc
+import sys
+import shutil
+import inspect
+import textwrap
+import subprocess
+from pathlib import Path
+from functools import wraps
+from typing import Callable, cast
+from contextlib import contextmanager
 
 import lxml.html
 
@@ -38,10 +36,12 @@ else:
 from sphinxcontrib_trio import sniff_options
 
 if sys.version_info >= (3, 6):
+    agen_native = cast(Callable, lambda: None)  # satisfy linter
     exec(textwrap.dedent("""
         async def agen_native():
             yield
     """))
+
 
 def test_sniff_options():
     def check(obj, *expected):
@@ -57,7 +57,7 @@ def test_sniff_options():
             pass
 
         @classmethod
-        def b(self):
+        def b(cls):
             pass
 
         @staticmethod
@@ -65,13 +65,13 @@ def test_sniff_options():
             pass
 
         @classmethod
-        async def classasync(self):
+        async def classasync(cls):
             pass
 
-    check(Basic.__dict__["a"])
-    check(Basic.__dict__["b"], "classmethod")
-    check(Basic.__dict__["c"], "staticmethod")
-    check(Basic.__dict__["classasync"], "classmethod", "async")
+    check(inspect.getattr_static(Basic, "a"))
+    check(inspect.getattr_static(Basic, "b"), "classmethod")
+    check(inspect.getattr_static(Basic, "c"), "staticmethod")
+    check(inspect.getattr_static(Basic, "classasync"), "classmethod", "async")
 
     class Abstract(abc.ABC):  # pragma: no cover
         @abc.abstractmethod
@@ -88,10 +88,12 @@ def test_sniff_options():
         async def abstaticasync(self):
             pass
 
-    check(Abstract.__dict__["abmeth"], "abstractmethod")
-    check(Abstract.__dict__["abstatic"], "abstractmethod", "staticmethod")
-    check(Abstract.__dict__["abstaticasync"],
-          "abstractmethod", "staticmethod", "async")
+    check(inspect.getattr_static(Abstract, "abmeth"), "abstractmethod")
+    check(inspect.getattr_static(Abstract, "abstatic"), "abstractmethod", "staticmethod")
+    check(
+        inspect.getattr_static(Abstract, "abstaticasync"),
+        "abstractmethod", "staticmethod", "async",
+    )
 
     async def async_fn():  # pragma: no cover
         pass
@@ -124,12 +126,12 @@ def test_sniff_options():
 
     def manual_cm():  # pragma: no cover
         pass
-    manual_cm.__returns_contextmanager__ = True
+    manual_cm.__returns_contextmanager__ = True  # type: ignore
     check(manual_cm, "with")
 
     def manual_acm():  # pragma: no cover
         pass
-    manual_acm.__returns_acontextmanager__ = True
+    manual_acm.__returns_acontextmanager__ = True  # type: ignore
     check(manual_acm, "async-with")
 
     if have_async_generator:
@@ -140,7 +142,7 @@ def test_sniff_options():
         @wraps(acm_gen)
         def acm_wrapped():  # pragma: no cover
             pass
-        acm_wrapped.__returns_acontextmanager__ = True
+        acm_wrapped.__returns_acontextmanager__ = True  # type: ignore
 
         check(acm_wrapped, "async-with")
 
@@ -151,20 +153,27 @@ def test_sniff_options():
     # A chain with complex overrides. We ignore the intermediate generator and
     # async function, because the outermost one is a contextmanager -- but we
     # still pick up the staticmethod at the end of the chain.
-    @staticmethod
+    @staticmethod  # type: ignore
     def messy0():  # pragma: no cover
         pass
+
     async def messy1():  # pragma: no cover
         pass
-    messy1.__wrapped__ = messy0
+
+    messy1.__wrapped__ = messy0  # type: ignore
+
     def messy2():  # pragma: no cover
         yield
-    messy2.__wrapped__ = messy1
+
+    messy2.__wrapped__ = messy1  # type: ignore
+
     def messy3():  # pragma: no cover
         pass
-    messy3.__wrapped__ = messy2
-    messy3.__returns_contextmanager__ = True
+
+    messy3.__wrapped__ = messy2  # type: ignore
+    messy3.__returns_contextmanager__ = True  # type: ignore
     check(messy3, "with", "staticmethod")
+
 
 # Hopefully the next sphinx release will have dedicated pytest-based testing
 # utilities:
@@ -182,9 +191,9 @@ def test_end_to_end(tmpdir):
 
     tree = lxml.html.parse(str(tmpdir / "out" / "test.html")).getroot()
 
-    def do_html_test(node):
+    def do_html_test(node, *, expect_match):
         original_content = node.text_content()
-        print("-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
+        print("\n-- test case --\n", lxml.html.tostring(node, encoding="unicode"))
 
         check_tags = node.cssselect(".highlight-none")
         checks = []
@@ -207,8 +216,11 @@ def test_end_to_end(tmpdir):
         test_content = test_content.replace("\u2026", "...")
         for check in checks:
             try:
-                assert re.search(check, test_content) is not None
-            except:
+                if expect_match:
+                    assert re.search(check, test_content) is not None
+                else:
+                    assert re.search(check, test_content) is None
+            except AssertionError:
                 print("failed check")
                 print()
                 print(repr(check))
@@ -221,13 +233,12 @@ def test_end_to_end(tmpdir):
     print("\n-- NEGATIVE (WARNING) TESTS --\n")
 
     for warning in tree.cssselect(".warning"):
-        with pytest.raises(AssertionError):
-            do_html_test(warning)
+        do_html_test(warning, expect_match=False)
 
     print("\n-- POSITIVE (NOTE) TESTS --\n")
 
     for note in tree.cssselect(".note"):
-        do_html_test(note)
+        do_html_test(note, expect_match=True)
 
 
 def test_member_order(tmpdir):
@@ -242,7 +253,9 @@ def test_member_order(tmpdir):
 
     print("\n-- test case member order by source. --\n")
 
-    methods = tree.cssselect(r"#autodoc_examples\.ExampleClassForOrder")[0].getnext().cssselect("dt")
+    methods = (
+        tree.cssselect(r"#autodoc_examples\.ExampleClassForOrder")[0].getnext().cssselect("dt")
+    )
 
     names = [method.get("id").split(".")[-1] for method in methods]
 
