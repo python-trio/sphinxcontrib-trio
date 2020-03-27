@@ -298,6 +298,19 @@ Revision history
 
 .. towncrier release notes start
 
+Sphinxcontrib_Trio 1.1.1 (2020-03-26)
++++++++++++++++++++++++++++++++++++++
+
+Bugfixes
+~~~~~~~~
+
+- When using autodoc to document a class that has inherited members, we
+  now correctly auto-detect the async-ness and other properties of those
+  inherited methods. (`#19 <https://github.com/python-trio/sphinxcontrib-trio/issues/19>`__)
+- Recent versions of Sphinx deprecated its ``PyModulelevel`` class.
+  We've adjusted sphinxcontrib-trio's internals to stop using it. (`#138 <https://github.com/python-trio/sphinxcontrib-trio/issues/138>`__)
+
+
 Sphinxcontrib_Trio 1.1.0 (2019-06-03)
 +++++++++++++++++++++++++++++++++++++
 
