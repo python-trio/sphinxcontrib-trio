@@ -1,0 +1,2 @@
+Recent versions of Sphinx deprecated its ``PyModulelevel`` class.
+We've adjusted sphinxcontrib-trio's internals to stop using it.

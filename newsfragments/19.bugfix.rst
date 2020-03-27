@@ -1,0 +1,3 @@
+When using autodoc to document a class that has inherited members, we
+now correctly auto-detect the async-ness and other properties of those
+inherited methods.
