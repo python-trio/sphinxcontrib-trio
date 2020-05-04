@@ -21,6 +21,7 @@ Basic smoke tests
 .. note::
 
    .. function:: foo(bar)
+      :noindex:
       :async:
 
    .. code-block:: none
@@ -31,6 +32,7 @@ Basic smoke tests
 .. warning::
 
    .. function:: foo(bar)
+      :noindex:
 
    .. code-block:: none
 
@@ -43,6 +45,7 @@ Check all the formatting logic
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :abstractmethod:
       :staticmethod:
       :async:
@@ -55,6 +58,7 @@ Check all the formatting logic
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :classmethod:
 
    .. code-block:: none
@@ -65,6 +69,7 @@ Check all the formatting logic
 .. note::
 
    .. function:: foo(bar)
+      :noindex:
       :with:
 
    .. code-block:: none
@@ -75,15 +80,17 @@ Check all the formatting logic
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :with: baz
 
    .. code-block:: none
 
-      <em class="property">with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
+      <em class="property">with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>(<span class="n">)?bar(</span>)?</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
 
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :async-with:
 
    .. code-block:: none
@@ -94,11 +101,12 @@ Check all the formatting logic
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :async-with: baz
 
    .. code-block:: none
 
-      <em class="property">async with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
+      <em class="property">async with </em><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>(<span class="n">)?bar(</span>)?</em><span class="sig-paren">\)</span><em class="property">&nbsp;as baz</em>
 
 
 This one checks that decorators don't normally have parentheses:
@@ -106,6 +114,7 @@ This one checks that decorators don't normally have parentheses:
 .. note::
 
    .. decorator:: foo
+      :noindex:
 
    .. code-block:: none
 
@@ -117,10 +126,11 @@ But if you do have arguments, they're displayed
 .. note::
 
    .. decorator:: foo(bar)
+      :noindex:
 
    .. code-block:: none
 
-      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>bar</em>
+      <code class="(sig-prename )?descclassname">@</code><code class="(sig-name )?descname">foo</code><span class="sig-paren">\(</span><em( class="sig-param")?>(<span class="n">)?bar(</span>)?</em>
 
 
 Same for properties, in case someone uses `.. method:: :property:`
@@ -129,6 +139,7 @@ Same for properties, in case someone uses `.. method:: :property:`
 .. note::
 
   .. method:: foo()
+     :noindex:
      :property:
 
   .. code-block:: none
@@ -139,6 +150,7 @@ Same for properties, in case someone uses `.. method:: :property:`
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :for:
 
    .. code-block:: none
@@ -149,6 +161,7 @@ Same for properties, in case someone uses `.. method:: :property:`
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :for: baz
 
    .. code-block:: none
@@ -158,6 +171,7 @@ Same for properties, in case someone uses `.. method:: :property:`
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :async-for:
 
    .. code-block:: none
@@ -168,6 +182,7 @@ Same for properties, in case someone uses `.. method:: :property:`
 .. note::
 
    .. method:: foo(bar)
+      :noindex:
       :async-for: baz
 
    .. code-block:: none
@@ -181,6 +196,7 @@ Backwards compatibility directives
 .. note::
 
    .. decorator:: foo
+      :noindex:
 
    .. code-block:: none
 
@@ -189,6 +205,7 @@ Backwards compatibility directives
 .. note::
 
    .. decoratormethod:: foo
+      :noindex:
 
    .. code-block:: none
 
@@ -197,6 +214,7 @@ Backwards compatibility directives
 .. note::
 
    .. classmethod:: foo(bar)
+      :noindex:
 
    .. code-block:: none
 
@@ -205,6 +223,7 @@ Backwards compatibility directives
 .. note::
 
    .. staticmethod:: foo(bar)
+      :noindex:
 
    .. code-block:: none
 
@@ -221,6 +240,7 @@ Autodoc smoke tests:
 .. note::
 
    .. autofunction:: basic
+      :noindex:
 
    .. code-block:: none
 
@@ -229,6 +249,7 @@ Autodoc smoke tests:
 .. warning::
 
    .. autofunction:: basic
+      :noindex:
 
    .. code-block:: none
 
@@ -237,6 +258,7 @@ Autodoc smoke tests:
 .. note::
 
    .. autofunction:: asyncfn
+      :noindex:
 
    .. code-block:: none
 
@@ -253,6 +275,7 @@ from you, and (b) you have to integrate correctly with autodoc for
 .. note::
 
    .. autoclass:: ExampleClass
+      :noindex:
       :members:
       :undoc-members:
 
@@ -284,6 +307,7 @@ Autodoc + inherited methods:
 .. note::
 
    .. autoclass:: ExampleInheritedSubclass
+      :noindex:
       :members:
       :undoc-members:
       :inherited-members:
@@ -299,6 +323,7 @@ Autodoc + inherited methods:
 .. warning::
 
    .. autoclass:: ExampleInheritedSubclass
+      :noindex:
       :members:
       :undoc-members:
       :inherited-members:
@@ -317,6 +342,7 @@ Autodoc + explicit options:
 .. note::
 
    .. autofunction:: basic
+      :noindex:
       :for:
       :async:
 
@@ -329,6 +355,7 @@ Overriding sniffed ``:for:`` with ``:for: arg``:
 .. note::
 
    .. autofunction:: gen
+      :noindex:
 
    .. code-block:: none
 
@@ -337,6 +364,7 @@ Overriding sniffed ``:for:`` with ``:for: arg``:
 .. note::
 
    .. autofunction:: gen
+      :noindex:
       :for: arg
 
    .. code-block:: none
@@ -348,6 +376,7 @@ Testing ``:no-auto-options:``:
 .. note::
 
    .. autofunction:: gen
+      :noindex:
       :no-auto-options:
 
    .. code-block:: none
@@ -358,6 +387,7 @@ Testing ``:no-auto-options:``:
 .. warning::
 
    .. autofunction:: gen
+      :noindex:
       :no-auto-options:
 
    .. code-block:: none
@@ -367,6 +397,7 @@ Testing ``:no-auto-options:``:
 .. note::
 
    .. autofunction:: gen
+      :noindex:
       :no-auto-options:
       :for:
 
@@ -377,6 +408,7 @@ Testing ``:no-auto-options:``:
 .. note::
 
    .. autofunction:: gen
+      :noindex:
       :no-auto-options:
       :async:
 
