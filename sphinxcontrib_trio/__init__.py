@@ -65,7 +65,13 @@ try:
     from sphinx.domains.python import PyFunction
 except ImportError:
     from sphinx.domains.python import PyModulelevel as PyFunction
-from sphinx.domains.python import PyMethod, PyClassMethod, PyStaticMethod, PyObject
+from sphinx.domains.python import PyObject
+try:
+    from sphinx.domains.python import PyMethod, PyClassMethod, PyStaticMethod
+except ImportError:
+    from sphinx.domains.python import PyClassmember as PyMethod
+    from sphinx.domains.python import PyClassmember as PyClassMethod
+    from sphinx.domains.python import PyClassmember as PyStaticMethod
 from sphinx.ext.autodoc import (
     FunctionDocumenter, MethodDocumenter, ClassLevelDocumenter, Options, ModuleLevelDocumenter
 )
