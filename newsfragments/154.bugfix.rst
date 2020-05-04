@@ -1,0 +1,3 @@
+Recent version of Sphinx deprecated its ``PyClassmember`` class. We've
+adjusted sphinxcontrib-trio's internals to stop using it and silence
+the warning.
