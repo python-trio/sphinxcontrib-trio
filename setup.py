@@ -17,7 +17,7 @@ setup(
     license="MIT -or- Apache License 2.0",
     packages=find_packages(),
     url="https://github.com/python-trio/sphinxcontrib-trio",
-    install_requires=["sphinx >= 1.7"],
+    install_requires=["sphinx >= 3.0"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
