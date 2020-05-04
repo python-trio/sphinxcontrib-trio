@@ -298,6 +298,17 @@ Revision history
 
 .. towncrier release notes start
 
+Sphinxcontrib_Trio 1.1.2 (2020-05-04)
++++++++++++++++++++++++++++++++++++++
+
+Bugfixes
+~~~~~~~~
+
+- Recent version of Sphinx deprecated its ``PyClassmember`` class. We've
+  adjusted sphinxcontrib-trio's internals to stop using it and silence
+  the warning. (`#154 <https://github.com/python-trio/sphinxcontrib-trio/issues/154>`__)
+
+
 Sphinxcontrib_Trio 1.1.1 (2020-03-26)
 +++++++++++++++++++++++++++++++++++++
 
