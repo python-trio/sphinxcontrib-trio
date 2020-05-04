@@ -7,10 +7,18 @@ matrix:
     - python: 3.7
     - python: 3.7
       env: OLD_SPHINX=1.7
-    - python: 3.7
+    - python: 3.8
       env: OLD_SPHINX=1.8
-    - python: 3.7
+    - python: 3.8
       env: OLD_SPHINX=2.0
+    - python: 3.8
+      env: OLD_SPHINX=2.1
+    - python: 3.8
+      env: OLD_SPHINX=2.2
+    - python: 3.8
+      env: OLD_SPHINX=2.3
+    - python: 3.8
+      env: OLD_SPHINX=2.4
 
 script:
   - ci/travis.sh
