@@ -19,7 +19,7 @@ imagesize==1.2.0          # via sphinx
 jinja2==2.11.2            # via sphinx
 lxml==4.5.0               # via -r test-requirements.in
 markupsafe==1.1.1         # via jinja2
-more-itertools==8.2.0     # via pytest
+more-itertools==8.3.0     # via pytest
 packaging==20.3           # via pytest, sphinx
 pluggy==0.13.1            # via pytest
 py==1.8.1                 # via pytest
