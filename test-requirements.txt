@@ -29,7 +29,7 @@ pytest-cov==2.8.1         # via -r test-requirements.in
 pytest==5.4.2             # via -r test-requirements.in, pytest-cov
 pytz==2020.1              # via babel
 requests==2.23.0          # via sphinx
-six==1.14.0               # via packaging
+six==1.15.0               # via packaging
 snowballstemmer==2.0.0    # via sphinx
 sphinx==3.0.3             # via -r test-requirements.in
 sphinxcontrib-applehelp==1.0.2  # via sphinx
