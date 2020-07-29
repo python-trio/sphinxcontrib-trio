@@ -16,6 +16,7 @@ cssselect==1.1.0          # via -r test-requirements.in
 docutils==0.16            # via sphinx
 idna==2.10                # via requests
 imagesize==1.2.0          # via sphinx
+iniconfig==1.0.0          # via pytest
 jinja2==2.11.2            # via sphinx
 lxml==4.5.2               # via -r test-requirements.in
 markupsafe==1.1.1         # via jinja2
@@ -26,7 +27,7 @@ py==1.9.0                 # via pytest
 pygments==2.6.1           # via sphinx
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.0        # via -r test-requirements.in
-pytest==5.4.3             # via -r test-requirements.in, pytest-cov
+pytest==6.0.0             # via -r test-requirements.in, pytest-cov
 pytz==2020.1              # via babel
 requests==2.24.0          # via sphinx
 six==1.15.0               # via packaging
@@ -38,5 +39,5 @@ sphinxcontrib-htmlhelp==1.0.3  # via sphinx
 sphinxcontrib-jsmath==1.0.1  # via sphinx
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
+toml==0.10.1              # via pytest
 urllib3==1.25.10          # via requests
-wcwidth==0.2.5            # via pytest
