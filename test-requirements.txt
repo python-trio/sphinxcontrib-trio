@@ -18,7 +18,7 @@ idna==2.10                # via requests
 imagesize==1.2.0          # via sphinx
 iniconfig==1.1.1          # via pytest
 jinja2==2.11.2            # via sphinx
-lxml==4.5.2               # via -r test-requirements.in
+lxml==4.6.1               # via -r test-requirements.in
 markupsafe==1.1.1         # via jinja2
 packaging==20.4           # via pytest, sphinx
 pluggy==0.13.1            # via pytest
