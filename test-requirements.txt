@@ -23,7 +23,7 @@ markupsafe==1.1.1         # via jinja2
 packaging==20.4           # via pytest, sphinx
 pluggy==0.13.1            # via pytest
 py==1.9.0                 # via pytest
-pygments==2.7.1           # via sphinx
+pygments==2.7.2           # via sphinx
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r test-requirements.in
 pytest==6.1.1             # via -r test-requirements.in, pytest-cov
