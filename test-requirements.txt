@@ -7,7 +7,7 @@
 alabaster==0.7.12         # via sphinx
 async-generator==1.10     # via -r test-requirements.in
 attrs==20.3.0             # via pytest
-babel==2.8.0              # via sphinx
+babel==2.8.1              # via sphinx
 certifi==2020.11.8        # via requests
 chardet==3.0.4            # via requests
 contextlib2==0.6.0.post1  # via -r test-requirements.in
