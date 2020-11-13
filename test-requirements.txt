@@ -39,4 +39,4 @@ sphinxcontrib-jsmath==1.0.1  # via sphinx
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 toml==0.10.2              # via pytest
-urllib3==1.25.11          # via requests
+urllib3==1.26.2           # via requests
