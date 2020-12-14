@@ -16,8 +16,8 @@ sphinx-build -nW  -b html source build
 popd
 
 pip install -Ur test-requirements.txt
-# https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
-if [ -n "${OLD_SPHINX+x}" ]; then
+# https://serverfault.com/questions/7503/how-to-determine-if-a-bash-variable-is-empty
+if [ -n "${OLD_SPHINX}" ]; then
     pip install "sphinx == ${OLD_SPHINX}.*"
 fi
 mkdir empty

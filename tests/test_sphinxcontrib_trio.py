@@ -220,7 +220,7 @@ def test_end_to_end(tmpdir):
                     assert re.search(check, test_content) is not None
                 else:
                     assert re.search(check, test_content) is None
-            except AssertionError:
+            except AssertionError:  # pragma: nocover
                 print("failed check")
                 print()
                 print(repr(check))

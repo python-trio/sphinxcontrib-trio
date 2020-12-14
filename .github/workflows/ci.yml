@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - "dependabot/**"
+  pull_request:
+
+jobs:
+  Ubuntu:
+    name: 'Ubuntu (${{ matrix.python }}${{ matrix.extra_name }})'
+    timeout-minutes: 10
+    runs-on: 'ubuntu-latest'
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.6', '3.7', '3.8', '3.9']
+        old_sphinx: ['']
+        extra_name: ['']
+        include:
+          - python: '3.9'
+            old_sphinx: 2.0
+            extra_name: ', Sphinx 2.0'
+          - python: '3.9'
+            old_sphinx: 2.1
+            extra_name: ', Sphinx 2.1'
+          - python: '3.9'
+            old_sphinx: 2.2
+            extra_name: ', Sphinx 2.2'
+          - python: '3.9'
+            old_sphinx: 2.3
+            extra_name: ', Sphinx 2.3'
+          - python: '3.9'
+            old_sphinx: 2.4
+            extra_name: ', Sphinx 2.4'
+          - python: '3.9'
+            old_sphinx: 3.0
+            extra_name: ', Sphinx 3.0'
+          - python: '3.9'
+            old_sphinx: 3.1
+            extra_name: ', Sphinx 3.1'
+          - python: '3.9'
+            old_sphinx: 3.2
+            extra_name: ', Sphinx 3.2'
+          - python: '3.9'
+            old_sphinx: 3.3
+            extra_name: ', Sphinx 3.3'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '${{ matrix.python }}'
+      - name: Run tests
+        run: ./ci.sh
+        env:
+          OLD_SPHINX: '${{ matrix.old_sphinx}}'
+          # Should match 'name:' up above
+          JOB_NAME: 'Ubuntu (${{ matrix.python }}${{ matrix.extra_name }})'
