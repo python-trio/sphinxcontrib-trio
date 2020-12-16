@@ -1,0 +1,1 @@
+Drop support for Sphinx 1.7 and earlier. Drop support for Python 3.5.
