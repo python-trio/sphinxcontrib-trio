@@ -28,7 +28,7 @@ pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r test-requirements.in
 pytest==6.2.1             # via -r test-requirements.in, pytest-cov
 pytz==2020.4              # via babel
-requests==2.25.0          # via sphinx
+requests==2.25.1          # via sphinx
 snowballstemmer==2.0.0    # via sphinx
 sphinx==3.3.1             # via -r test-requirements.in
 sphinxcontrib-applehelp==1.0.2  # via sphinx
