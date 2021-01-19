@@ -25,7 +25,7 @@ pluggy==0.13.1            # via pytest
 py==1.10.0                # via pytest
 pygments==2.7.4           # via sphinx
 pyparsing==2.4.7          # via packaging
-pytest-cov==2.10.1        # via -r test-requirements.in
+pytest-cov==2.11.0        # via -r test-requirements.in
 pytest==6.2.1             # via -r test-requirements.in, pytest-cov
 pytz==2020.5              # via babel
 requests==2.25.1          # via sphinx
