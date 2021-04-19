@@ -22,7 +22,7 @@ coverage==5.5
     # via pytest-cov
 cssselect==1.1.0
     # via -r test-requirements.in
-docutils==0.17.1
+docutils==0.16
     # via sphinx
 idna==2.10
     # via requests
@@ -60,7 +60,7 @@ requests==2.25.1
     # via sphinx
 snowballstemmer==2.1.0
     # via sphinx
-sphinx==3.4.3
+sphinx==3.5.4
     # via -r test-requirements.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
