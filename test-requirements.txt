@@ -22,7 +22,7 @@ coverage==5.5
     # via pytest-cov
 cssselect==1.1.0
     # via -r test-requirements.in
-docutils==0.17
+docutils==0.17.1
     # via sphinx
 idna==2.10
     # via requests
