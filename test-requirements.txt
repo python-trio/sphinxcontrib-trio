@@ -44,7 +44,7 @@ pluggy==0.13.1
     # via pytest
 py==1.10.0
     # via pytest
-pygments==2.8.1
+pygments==2.9.0
     # via sphinx
 pyparsing==2.4.7
     # via packaging
