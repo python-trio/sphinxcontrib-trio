@@ -45,6 +45,15 @@ jobs:
           - python: '3.9'
             old_sphinx: 3.3
             extra_name: ', Sphinx 3.3'
+          - python: '3.9'
+            old_sphinx: 3.4
+            extra_name: ', Sphinx 3.4'
+          - python: '3.9'
+            old_sphinx: 3.5
+            extra_name: ', Sphinx 3.5'
+          - python: '3.9'
+            old_sphinx: 4.0
+            extra_name: ', Sphinx 4.0'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
