@@ -52,7 +52,7 @@ pytest==6.2.3
     # via
     #   -r test-requirements.in
     #   pytest-cov
-pytest-cov==2.11.1
+pytest-cov==2.12.1
     # via -r test-requirements.in
 pytz==2021.1
     # via babel
@@ -75,6 +75,8 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.4
     # via sphinx
 toml==0.10.2
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 urllib3==1.26.6
     # via requests
