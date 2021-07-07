@@ -36,7 +36,7 @@ lxml==4.6.3
     # via -r test-requirements.in
 markupsafe==1.1.1
     # via jinja2
-packaging==20.9
+packaging==21.0
     # via
     #   pytest
     #   sphinx
