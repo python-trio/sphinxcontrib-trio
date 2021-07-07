@@ -22,9 +22,9 @@ jinja2==2.11.3
     # via sphinx
 markupsafe==1.1.1
     # via jinja2
-packaging==20.9
+packaging==21.0
     # via sphinx
-pygments==2.8.1
+pygments==2.9.0
     # via sphinx
 pyparsing==2.4.7
     # via packaging
@@ -46,7 +46,7 @@ sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.4
+sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
 urllib3==1.26.6
     # via requests
