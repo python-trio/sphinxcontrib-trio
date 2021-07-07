@@ -16,7 +16,7 @@ certifi==2020.12.5
     # via requests
 chardet==4.0.0
     # via requests
-contextlib2==0.6.0.post1
+contextlib2==21.6.0
     # via -r test-requirements.in
 coverage==5.5
     # via pytest-cov
@@ -44,7 +44,7 @@ pluggy==0.13.1
     # via pytest
 py==1.10.0
     # via pytest
-pygments==2.8.1
+pygments==2.9.0
     # via sphinx
 pyparsing==2.4.7
     # via packaging
@@ -72,7 +72,7 @@ sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.4
+sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
 toml==0.10.2
     # via pytest
