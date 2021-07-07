@@ -30,11 +30,11 @@ imagesize==1.2.0
     # via sphinx
 iniconfig==1.1.1
     # via pytest
-jinja2==2.11.3
+jinja2==3.0.1
     # via sphinx
 lxml==4.6.3
     # via -r test-requirements.in
-markupsafe==1.1.1
+markupsafe==2.0.1
     # via jinja2
 packaging==20.9
     # via
