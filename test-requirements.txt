@@ -24,7 +24,7 @@ cssselect==1.1.0
     # via -r test-requirements.in
 docutils==0.17.1
     # via sphinx
-idna==2.10
+idna==3.2
     # via requests
 imagesize==1.2.0
     # via sphinx
