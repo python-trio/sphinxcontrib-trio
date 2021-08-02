@@ -14,7 +14,7 @@ babel==2.9.0
     # via sphinx
 certifi==2021.5.30
     # via requests
-charset-normalizer==2.0.1
+charset-normalizer==2.0.4
     # via requests
 contextlib2==21.6.0
     # via -r test-requirements.in
