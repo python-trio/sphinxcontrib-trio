@@ -18,7 +18,7 @@ charset-normalizer==2.0.1
     # via requests
 contextlib2==21.6.0
     # via -r test-requirements.in
-coverage==5.5
+coverage==6.0.2
     # via pytest-cov
 cssselect==1.1.0
     # via -r test-requirements.in
