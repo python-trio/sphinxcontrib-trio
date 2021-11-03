@@ -22,7 +22,7 @@ coverage[toml]==6.1.1
     # via pytest-cov
 cssselect==1.1.0
     # via -r test-requirements.in
-docutils==0.17.1
+docutils==0.18
     # via sphinx
 idna==3.3
     # via requests
