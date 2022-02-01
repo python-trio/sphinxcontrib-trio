@@ -78,5 +78,5 @@ toml==0.10.2
     # via pytest
 tomli==1.2.2
     # via coverage
-urllib3==1.26.7
+urllib3==1.26.8
     # via requests
