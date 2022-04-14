@@ -54,7 +54,7 @@ pytest==7.0.1
     #   pytest-cov
 pytest-cov==3.0.0
     # via -r test-requirements.in
-pytz==2021.3
+pytz==2022.1
     # via babel
 requests==2.27.1
     # via sphinx
