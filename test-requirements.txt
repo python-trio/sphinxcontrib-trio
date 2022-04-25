@@ -34,7 +34,7 @@ jinja2==3.0.3
     # via sphinx
 lxml==4.8.0
     # via -r test-requirements.in
-markupsafe==2.0.1
+markupsafe==2.1.1
     # via jinja2
 packaging==21.3
     # via
