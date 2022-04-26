@@ -10,7 +10,7 @@ async-generator==1.10
     # via -r test-requirements.in
 attrs==21.4.0
     # via pytest
-babel==2.9.0
+babel==2.10.1
     # via sphinx
 certifi==2021.10.8
     # via requests
