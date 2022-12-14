@@ -32,7 +32,7 @@ iniconfig==1.1.1
     # via pytest
 jinja2==3.0.3
     # via sphinx
-lxml==4.8.0
+lxml==4.9.2
     # via -r test-requirements.in
 markupsafe==2.0.1
     # via jinja2
