@@ -10,7 +10,7 @@ async-generator==1.10
     # via -r test-requirements.in
 attrs==21.4.0
     # via pytest
-babel==2.10.1
+babel==2.12.1
     # via sphinx
 certifi==2022.5.18.1
     # via requests
@@ -54,8 +54,6 @@ pytest==7.0.1
     #   pytest-cov
 pytest-cov==3.0.0
     # via -r test-requirements.in
-pytz==2022.1
-    # via babel
 requests==2.27.1
     # via sphinx
 snowballstemmer==2.2.0
