@@ -42,13 +42,11 @@ packaging==21.3
     #   sphinx
 pluggy==1.0.0
     # via pytest
-py==1.11.0
-    # via pytest
 pygments==2.12.0
     # via sphinx
 pyparsing==3.0.9
     # via packaging
-pytest==7.0.1
+pytest==7.2.2
     # via
     #   -r test-requirements.in
     #   pytest-cov
@@ -75,8 +73,6 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
 tomli==1.2.2
-    # via
-    #   coverage
-    #   pytest
+    # via coverage
 urllib3==1.26.8
     # via requests
