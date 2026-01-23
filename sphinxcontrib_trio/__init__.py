@@ -380,6 +380,10 @@ class ExtendedMethodDocumenter(MethodDocumenter):
 # Register everything
 ################################################################
 
+def mess_with_autodoc(app):
+    app.add_autodocumenter(ExtendedFunctionDocumenter, override=True)
+    app.add_autodocumenter(ExtendedMethodDocumenter, override=True)
+
 
 def setup(app):
     app.add_directive_to_domain('py', 'function', ExtendedPyFunction)
@@ -389,12 +393,8 @@ def setup(app):
     app.add_directive_to_domain('py', 'decorator', ExtendedPyFunction)
     app.add_directive_to_domain('py', 'decoratormethod', ExtendedPyMethod)
 
-    # Make sure sphinx.ext.autodoc is loaded before we try to mess with it.
-    app.setup_extension("sphinx.ext.autodoc")
-    # We're overriding these on purpose, so disable the warning about it
-    del directives._directives["autofunction"]
-    del directives._directives["automethod"]
-    app.add_autodocumenter(ExtendedFunctionDocumenter)
-    app.add_autodocumenter(ExtendedMethodDocumenter)
+    # autodoc registers things at config-inited w/o priority, so
+    # take the subsequent event
+    app.connect("builder-inited", mess_with_autodoc)
 
     return {'version': __version__, 'parallel_read_safe': True}
