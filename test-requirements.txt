@@ -18,7 +18,7 @@ charset-normalizer==2.0.12
     # via requests
 contextlib2==21.6.0
     # via -r test-requirements.in
-coverage[toml]==6.1.1
+coverage[toml]==7.10.7
     # via pytest-cov
 cssselect==1.1.0
     # via -r test-requirements.in
@@ -40,8 +40,10 @@ packaging==21.3
     # via
     #   pytest
     #   sphinx
-pluggy==1.0.0
-    # via pytest
+pluggy==1.6.0
+    # via
+    #   pytest
+    #   pytest-cov
 py==1.11.0
     # via pytest
 pygments==2.12.0
@@ -52,7 +54,7 @@ pytest==7.0.1
     # via
     #   -r test-requirements.in
     #   pytest-cov
-pytest-cov==3.0.0
+pytest-cov==7.0.0
     # via -r test-requirements.in
 pytz==2022.1
     # via babel
