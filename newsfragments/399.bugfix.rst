@@ -1,0 +1,1 @@
+Fix `sphinxcontrib-trio` for Sphinx 9.0
