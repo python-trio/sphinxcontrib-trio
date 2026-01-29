@@ -18,7 +18,7 @@ setup(
     packages=find_packages(),
     url="https://github.com/python-trio/sphinxcontrib-trio",
     python_requires=">=3.6",
-    install_requires=["sphinx >= 2.0"],
+    install_requires=["sphinx >= 2.2"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
