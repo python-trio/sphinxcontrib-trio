@@ -123,7 +123,7 @@ Autodetection heuristics
   * functions decorated with `contextlib.asynccontextmanager
     <https://docs.python.org/3/library/contextlib.html#contextlib.asynccontextmanager>`__,
 
-  * functions that have an attribute ``__returns_acontextmanager__`` 
+  * functions that have an attribute ``__returns_acontextmanager__``
     (note the ``a``) with a truthy value.
 
 * ``:for:`` is autodetected for generators.
@@ -297,6 +297,21 @@ Revision history
 ----------------
 
 .. towncrier release notes start
+
+Sphinxcontrib_Trio 1.2.0 (2026-01-29)
++++++++++++++++++++++++++++++++++++++
+
+Bugfixes
+~~~~~~~~
+
+- Fix `sphinxcontrib-trio` for Sphinx 9.0 (`#399 <https://github.com/python-trio/sphinxcontrib-trio/issues/399>`__)
+
+
+Deprecations and Removals
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Drop support for Sphinx 2.1 and earlier. Drop support for Python 3.5. (`#225 <https://github.com/python-trio/sphinxcontrib-trio/issues/225>`__)
+
 
 Sphinxcontrib_Trio 1.1.2 (2020-05-04)
 +++++++++++++++++++++++++++++++++++++
